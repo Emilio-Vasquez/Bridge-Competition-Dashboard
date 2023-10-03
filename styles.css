@@ -1,0 +1,29 @@
+#chartPanel {
+    width: 30%;
+    padding: 20px;
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+    margin-top: 20px;
+    float: right;
+  }
+  
+  #chart {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  #chart th, #chart td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  #chart tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  #chart th {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
