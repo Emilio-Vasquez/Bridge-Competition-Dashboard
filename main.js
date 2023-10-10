@@ -7,12 +7,25 @@ const addTeamButton = document.getElementById('addTeamButton');
 const teamTable = document.getElementById('teamTable');
 const chartCanvas = document.getElementById('teamChart'); // Reference the canvas element
 
+// creates a class for teams
+class Team {
+	name = "unnamed team";
+	initialWeight = 0;
+	currentScore = 0;
+	breakpoint = false;
+	constructor(name, initialWeight){
+        this.name = name;
+        this.initialWeight = initialWeight;
+    }
+}
+
 // Array to store the list of teams
 const teams = [];
 
 // Function to add a team to the list
 function addTeam(name, initialWeight) {
-  teams.push({ name, initialWeight, currentScore: 0, breakPoint: false });
+  var addedTeam = new Team(name, initialWeight)
+  teams.push(addedTeam);
   updateTeamTable();
   updateChart(); // Call the function to update the chart
 }
