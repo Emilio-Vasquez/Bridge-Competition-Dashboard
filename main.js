@@ -12,6 +12,7 @@ class Team {
 	name = "unnamed team";
 	initialWeight = 0;
 	currentScore = 0;
+  
 	breakpoint = false;
 	constructor(name, initialWeight){
         this.name = name;
