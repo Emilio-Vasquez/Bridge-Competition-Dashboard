@@ -10,14 +10,12 @@ const chartCanvas = document.getElementById('teamChart'); // Reference the canva
 // creates a class for teams
 class Team {
 	name = "unnamed team";
-    bridgeWeight = 0;
-    BDEF = 10;
-    LP = 0;
+	initialWeight = 0;
 	currentScore = 0;
 	breakpoint = false;
-	constructor(name, bridgeWeight){
+	constructor(name, initialWeight){
         this.name = name;
-        this.bridgeWeight = bridgeWeight;
+        this.initialWeight = initialWeight;
     }
 }
 
