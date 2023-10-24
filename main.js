@@ -21,6 +21,7 @@ const teamNameInput = document.getElementById('teamNameInput');
         currentScore = 0;
         breakPoint = false;
         load = 0;
+        bDEF = 10;
 
     }
 
@@ -38,6 +39,7 @@ const teamNameInput = document.getElementById('teamNameInput');
         updateChart();
         teamNameInput.value = '';
         bridgeWeightInput.value = '';
+
       }
     }
   
@@ -52,8 +54,10 @@ const teamNameInput = document.getElementById('teamNameInput');
           <td>${team.currentScore}</td>
           <td>${team.load}</td>
           <td>${team.breakPoint ? 'Broken' : 'Not Broken'}</td>
+          <td>${team.bDEF}</td>
           <td>
             <button onclick="updateLoad(${index})">Update Load</button>
+            <button onclick="updateBDEF(${index})">Update BDEF</button>
             <button onclick="markAsBroken(${index})">Mark as Broken</button>
           </td>
         `;
@@ -97,14 +101,22 @@ const teamNameInput = document.getElementById('teamNameInput');
   
     // Function to update the score of a team
     function updateLoad(index) {
-      const addedWeight = parseFloat(prompt(`Enter load added for ${teams[index].name}:`));
+      const addedWeight = parseFloat(prompt(`Enter load change for ${teams[index].name}:`));
       if (!isNaN(addedWeight)) {
-        teams[index].currentScore += addedWeight;
+        teams[index].load += addedWeight;
         updateTeamTable();
         updateChart();
       }
     }
 
+function updateBDEF(index) {
+    const bDEF = parseFloat(prompt(`Enter BDEF for ${teams[index].name}:`));
+    if (!isNaN(bDEF)) {
+        teams[index].bDEF = bDEF;
+        updateTeamTable();
+        updateChart();
+    }
+}
     // function to update load of all teams
     function loadAll() {
         
@@ -123,7 +135,7 @@ const teamNameInput = document.getElementById('teamNameInput');
     }
     // Function to mark a team as broken
     function markAsBroken(index) {
-      teams[index].breakPoint = true;
+      teams[index].breakPoint = !teams[index].breakPoint;
       updateTeamTable();
       updateChart();
     }
