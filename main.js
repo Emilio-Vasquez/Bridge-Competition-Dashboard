@@ -1,5 +1,5 @@
 const teamNameInput = document.getElementById('teamNameInput');
-    const initialWeightInput = document.getElementById('initialWeightInput');
+    const bridgeWeightInput = document.getElementById('bridgeWeightInput');
     const addTeamButton = document.getElementById('addTeamButton');
     const teamTableBody = document.getElementById('teamTableBody');
     const teamChart = document.getElementById('teamChart').getContext('2d'); // Get the chart context
@@ -9,25 +9,32 @@ const teamNameInput = document.getElementById('teamNameInput');
   
     // Create an initial empty chart
     let chart;
-  
+    
+    // Class for teams. Each team will be an instance of this. This will allow us to keep track of each team's values more easily.
+    class Team {
+        constructor(name, bridgeWeight){
+            this.name = name;
+            this.bridgeWeight = bridgeWeight;
+        }
+        currentScore = 0;
+        breakPoint = false;
+
+    }
+
+
     // Function to add a team
     function addTeam() {
       const name = teamNameInput.value;
-      const initialWeight = parseFloat(initialWeightInput.value);
+      const bridgeWeight = parseFloat(bridgeWeightInput.value);
   
-      if (name && !isNaN(initialWeight)) {
-        const team = {
-          name,
-          initialWeight,
-          currentScore: 0,
-          breakPoint: false
-        };
+      if (name && !isNaN(bridgeWeight)) {
+        const team = new Team(name, bridgeWeight);
   
         teams.push(team);
         updateTeamTable();
         updateChart();
         teamNameInput.value = '';
-        initialWeightInput.value = '';
+        bridgeWeightInput.value = '';
       }
     }
   
@@ -38,7 +45,7 @@ const teamNameInput = document.getElementById('teamNameInput');
         const row = teamTableBody.insertRow();
         row.innerHTML = `
           <td>${team.name}</td>
-          <td>${team.initialWeight}</td>
+          <td>${team.bridgeWeight}</td>
           <td>${team.currentScore}</td>
           <td>${team.breakPoint ? 'Broken' : 'Not Broken'}</td>
           <td>
