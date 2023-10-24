@@ -12,15 +12,15 @@
   <div>
     <input type="text" id="teamNameInput" placeholder="Enter Team Name">
     <input type="number" id="bridgeWeightInput" placeholder="Enter Initial Weight">
-    <button id="addTeamButton">Add Team</button>
+    <button id="addTeamButton">Add Team</button
   </div>
 
   <table id="teamTable">
     <thead>
       <tr>
         <th>Team Name</th>
-        <th>Initial Weight</th>
-        <th>Current Score</th>
+        <th>Bridge Weight</th>
+        <th>Load</th>
         <th>Break Point</th>
         <th>Action</th>
       </tr>
@@ -39,6 +39,8 @@
 
   <!-- Add a button and a div for displaying team info -->
   <button id="displayTeamInfoButton">Display Team Info</button>
+  <input type="number" id="loadAllInput" placeholder = "Add Load to All">
+  <button id = "loadAllButton">Load All</button>
   <div id="teamInfo"></div>
 
   <canvas id="teamChart" width="400" height="200"></canvas> <!-- Add a canvas element for the chart -->

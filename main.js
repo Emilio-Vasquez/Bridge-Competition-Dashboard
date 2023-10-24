@@ -3,6 +3,8 @@ const teamNameInput = document.getElementById('teamNameInput');
     const addTeamButton = document.getElementById('addTeamButton');
     const teamTableBody = document.getElementById('teamTableBody');
     const teamChart = document.getElementById('teamChart').getContext('2d'); // Get the chart context
+    const loadAllButton = document.getElementById('loadAllButton');
+    const loadAllInput = document.getElementById('loadAllInput');
   
     // Array to store teams
     const teams = [];
@@ -18,6 +20,7 @@ const teamNameInput = document.getElementById('teamNameInput');
         }
         currentScore = 0;
         breakPoint = false;
+        load = 0;
 
     }
 
@@ -49,7 +52,7 @@ const teamNameInput = document.getElementById('teamNameInput');
           <td>${team.currentScore}</td>
           <td>${team.breakPoint ? 'Broken' : 'Not Broken'}</td>
           <td>
-            <button onclick="updateScore(${index})">Update Score</button>
+            <button onclick="updateLoad(${index})">Update Load</button>
             <button onclick="markAsBroken(${index})">Mark as Broken</button>
           </td>
         `;
@@ -92,15 +95,32 @@ const teamNameInput = document.getElementById('teamNameInput');
     }
   
     // Function to update the score of a team
-    function updateScore(index) {
-      const addedWeight = parseFloat(prompt(`Enter weight added for ${teams[index].name}:`));
+    function updateLoad(index) {
+      const addedWeight = parseFloat(prompt(`Enter load added for ${teams[index].name}:`));
       if (!isNaN(addedWeight)) {
         teams[index].currentScore += addedWeight;
         updateTeamTable();
         updateChart();
       }
     }
-  
+
+    // function to update load of all teams
+    function loadAll() {
+        
+        if ((teams.length != 0) && (!isNaN(loadAllInput.value))){
+
+            load = loadAllInput.value;
+            for (var team in teams){
+                console.log(team.name)
+                team.load += load;
+            }
+            updateTeamTable();
+            updateChart();
+        }
+        else {
+            console.log("pizza pie");
+        }
+    }
     // Function to mark a team as broken
     function markAsBroken(index) {
       teams[index].breakPoint = true;
@@ -110,3 +130,5 @@ const teamNameInput = document.getElementById('teamNameInput');
   
     // Event listener for the "Add Team" button
     addTeamButton.addEventListener('click', addTeam);
+
+    loadAllButton.addEventListener('click', loadAll);
