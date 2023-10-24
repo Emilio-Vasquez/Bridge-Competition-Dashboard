@@ -50,6 +50,7 @@ const teamNameInput = document.getElementById('teamNameInput');
           <td>${team.name}</td>
           <td>${team.bridgeWeight}</td>
           <td>${team.currentScore}</td>
+          <td>${team.load}</td>
           <td>${team.breakPoint ? 'Broken' : 'Not Broken'}</td>
           <td>
             <button onclick="updateLoad(${index})">Update Load</button>
@@ -107,18 +108,17 @@ const teamNameInput = document.getElementById('teamNameInput');
     // function to update load of all teams
     function loadAll() {
         
-        if ((teams.length != 0) && (!isNaN(loadAllInput.value))){
+        if ((teams.length != 0) && (!isNaN(loadAllInput.valueAsNumber))){
 
-            load = loadAllInput.value;
-            for (var team in teams){
-                console.log(team.name)
-                team.load += load;
+            load = loadAllInput.valueAsNumber;
+            for (i = 0; i < teams.length; i++){
+                teams[i].load += load;
             }
             updateTeamTable();
             updateChart();
         }
         else {
-            console.log("pizza pie");
+            console.log("Cannot add value to teams.");
         }
     }
     // Function to mark a team as broken
