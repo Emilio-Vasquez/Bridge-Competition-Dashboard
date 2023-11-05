@@ -1,20 +1,15 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Bridge Competition Manager</title>
-  <link rel="stylesheet" href="styles.css">
+  <head>
+    <title>Bridge Competition Manager</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="main.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
 <body>
   <h1>Bridge Competition Manager</h1>
   
-  <div>
-    <input type="text" id="teamNameInput" placeholder="Enter Team Name">
-    <input type="number" id="bridgeWeightInput" placeholder="Enter Bridge Weight">
-    <button id="addTeamButton">Add Team</button
-  </div>
-
   <table id="teamTable">
     <thead>
       <tr>
@@ -31,21 +26,26 @@
       <!-- Team items will be added here -->
     </tbody>
   </table>
-
-  <div id="chartPanel">
+  
+  <!-- <div id="chartPanel">
     <h2>Team Chart</h2>
     <div id="chart">
-      <!-- Chart will be dynamically updated here -->
+      Chart will be dynamically updated here
     </div>
-  </div>
-
+  </div> -->
+  
   <!-- Add a button and a div for displaying team info -->
   <button id="displayTeamInfoButton">Display Team Info</button>
   <input type="number" id="loadAllInput" placeholder = "Add Load to All">
   <button id = "loadAllButton">Load All</button>
   <div id="teamInfo"></div>
-
-  <canvas id="teamChart" width="400" height="200"></canvas> <!-- Add a canvas element for the chart -->
-  <canvas id="teamChart" width="400" height="200"></canvas>
-  <script src="main.js"></script>
+  
+  <!-- <canvas id="teamChart" width="400" height="200"></canvas> Add a canvas element for the chart -->
+  <!-- <canvas id="teamChart" width="400" height="200"></canvas> -->
+  
+  <div id="teamCreation">
+    <input type="text" id="teamNameInput" placeholder="Enter Team Name">
+    <input type="number" id="bridgeWeightInput" placeholder="Enter Bridge Weight">
+    <button id="addTeamButton">Add Team</button>
+  </div>
   
