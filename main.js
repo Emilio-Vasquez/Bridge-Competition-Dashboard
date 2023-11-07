@@ -1,5 +1,6 @@
 const teamNameInput = document.getElementById('teamNameInput');
 const bridgeWeightInput = document.getElementById('bridgeWeightInput');
+const tableNumberInput = document.getElementById('tableNumberInput');
 const addTeamButton = document.getElementById('addTeamButton');
 const teamTableBody = document.getElementById('teamTableBody');
 const teamChart = document.getElementById('teamChart').getContext('2d'); // Get the chart context
@@ -14,9 +15,10 @@ let chart;
     
 // Class for teams. Each team will be an instance of this. This will allow us to keep track of each team's values more easily.
 class Team {
-    constructor(name, bridgeWeight){
+    constructor(name, bridgeWeight, tableNumber){
         this.name = name;
         this.bridgeWeight = bridgeWeight;
+        this.tableNumber = tableNumber;
     }
     score = 0;
     breakPoint = false;
@@ -31,9 +33,10 @@ class Team {
 function addTeam() {
     const name = teamNameInput.value;
     const bridgeWeight = parseFloat(bridgeWeightInput.value);
+    const tableNumber = parseFloat(tableNumberInput.value);
   
-    if (name && !isNaN(bridgeWeight)) {
-    const team = new Team(name, bridgeWeight);
+    if (name && !isNaN(bridgeWeight) && !isNaN(tableNumber)) {
+    const team = new Team(name, bridgeWeight, tableNumber);
   
     teams.push(team);
     updateTeamTable();
@@ -98,6 +101,7 @@ function updateTeamTable() {
     const row = teamTableBody.insertRow();
     row.innerHTML = `
         <td>${team.name}</td>
+        <td>${team.tableNumber}</td>
         <td>${team.bridgeWeight}</td>
         <td>${team.score}</td>
         <td>${team.load}</td>
