@@ -26,4 +26,17 @@
     background-color: #4CAF50;
     color: white;
   }
+
+body
+{
+  background-image: url("https://cdn.dribbble.com/users/966681/screenshots/2890732/media/3aef32cd435d242fb7a09f714ab7dac6.gif");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height:200vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  background-position: 50% 0;
+  animation: slowBackground 10s;
   
