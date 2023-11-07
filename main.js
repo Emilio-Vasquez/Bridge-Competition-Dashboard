@@ -3,7 +3,7 @@ const bridgeWeightInput = document.getElementById('bridgeWeightInput');
 const tableNumberInput = document.getElementById('tableNumberInput');
 const addTeamButton = document.getElementById('addTeamButton');
 const teamTableBody = document.getElementById('teamTableBody');
-const teamChart = document.getElementById('teamChart').getContext('2d'); // Get the chart context
+// const teamChart = document.getElementById('teamChart').getContext('2d'); // Get the chart context
 const loadAllButton = document.getElementById('loadAllButton');
 const loadAllInput = document.getElementById('loadAllInput');
   
@@ -11,7 +11,7 @@ const loadAllInput = document.getElementById('loadAllInput');
 const teams = [];
   
 // Create an initial empty chart
-let chart;
+// let chart;
     
 // Class for teams. Each team will be an instance of this. This will allow us to keep track of each team's values more easily.
 class Team {
@@ -40,9 +40,12 @@ function addTeam() {
   
     teams.push(team);
     updateTeamTable();
-    updateChart();
+    // updateChart();
     teamNameInput.value = '';
+    tableNumberInput.value = '';
     bridgeWeightInput.value = '';
+    
+    
 
     }
 }
@@ -116,40 +119,41 @@ function updateTeamTable() {
     });
 }
   
+
 // Function to update the Chart.js chart
-function updateChart() {
-    if (chart) {
-    chart.destroy(); // Destroy the previous chart instance to prevent memory leaks
-    }
+// function updateChart() {
+//     if (chart) {
+//     chart.destroy(); // Destroy the previous chart instance to prevent memory leaks
+//     }
   
-    // Extract the team names and scores for the chart
-    const labels = teams.map((team) => team.name);
-    const scores = teams.map((team) => team.score);
+//     // Extract the team names and scores for the chart
+//     const labels = teams.map((team) => team.name);
+//     const scores = teams.map((team) => team.score);
   
-    // Create a new Chart.js chart
-    chart = new Chart(teamChart, {
-    type: 'bar', // You can choose the chart type (e.g., bar, line, pie, etc.)
-    data: {
-        labels: labels,
-        datasets: [
-        {
-            label: 'Scores',
-            data: scores,
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            borderColor: 'rgba(75, 192, 192, 1)',
-            borderWidth: 1,
-        },
-        ],
-    },
-    options: {
-        scales: {
-        y: {
-            beginAtZero: true,
-        },
-        },
-    },
-    });
-}
+//     // Create a new Chart.js chart
+//     chart = new Chart(teamChart, {
+//     type: 'bar', // You can choose the chart type (e.g., bar, line, pie, etc.)
+//     data: {
+//         labels: labels,
+//         datasets: [
+//         {
+//             label: 'Scores',
+//             data: scores,
+//             backgroundColor: 'rgba(75, 192, 192, 0.2)',
+//             borderColor: 'rgba(75, 192, 192, 1)',
+//             borderWidth: 1,
+//         },
+//         ],
+//     },
+//     options: {
+//         scales: {
+//         y: {
+//             beginAtZero: true,
+//         },
+//         },
+//     },
+//     });
+// }
   
 // Function to update the score of a team
 function updateLoad(index) {
@@ -158,7 +162,7 @@ function updateLoad(index) {
     teams[index].load += addedWeight;
     calculateScores();
     updateTeamTable();
-    updateChart();
+    // updateChart();
     }
 }
 
@@ -167,7 +171,7 @@ const bDEF = parseFloat(prompt(`Enter BDEF for ${teams[index].name}:`));
 if (!isNaN(bDEF)) {
     teams[index].bDEF = bDEF;
     updateTeamTable();
-    updateChart();
+    // updateChart();
 }
 }
 // function to update load of all teams
@@ -183,7 +187,7 @@ function loadAll() {
         }
         calculateScores();
         updateTeamTable();
-        updateChart();
+        // updateChart();
     }
     else {
         console.log("Cannot add value to teams.");
@@ -193,7 +197,7 @@ function loadAll() {
 function markAsBroken(index) {
     teams[index].breakPoint = !teams[index].breakPoint;
     updateTeamTable();
-    updateChart();
+    // updateChart();
 }
   
 // Event listener for the "Add Team" button
