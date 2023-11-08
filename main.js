@@ -27,6 +27,19 @@ class Team {
     bDEF = 10;
 
 }
+function compareTeams(a, b) {
+    if (a.score < b.score){
+        return 1;
+    }
+    if (b.score < a.score){
+        return -1;
+    }
+    return 0;
+}
+
+function sortTeams(teams){
+    teams.sort(compareTeams);
+}
 
 
 // Function to add a team
@@ -103,6 +116,7 @@ function updateTeamTable() {
     teams.forEach((team, index) => {
     const row = teamTableBody.insertRow();
     row.innerHTML = `
+        <td>${index+1}</td>
         <td>${team.name}</td>
         <td>${team.tableNumber}</td>
         <td>${team.bridgeWeight}</td>
@@ -161,6 +175,7 @@ function updateLoad(index) {
     if (!isNaN(addedWeight)) {
     teams[index].load += addedWeight;
     calculateScores();
+    sortTeams(teams);
     updateTeamTable();
     // updateChart();
     }
@@ -170,6 +185,8 @@ function updateBDEF(index) {
 const bDEF = parseFloat(prompt(`Enter BDEF for ${teams[index].name}:`));
 if (!isNaN(bDEF)) {
     teams[index].bDEF = bDEF;
+    calculateScores();
+    sortTeams(teams);
     updateTeamTable();
     // updateChart();
 }
@@ -186,6 +203,7 @@ function loadAll() {
             }
         }
         calculateScores();
+        sortTeams(teams);
         updateTeamTable();
         // updateChart();
     }
