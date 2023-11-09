@@ -5,6 +5,7 @@
     border: 1px solid #ccc;
     margin-top: 20px;
     float: right;
+    overflow: hidden;
   }
   
   #chart {
@@ -15,7 +16,7 @@
   #chart th, #chart td {
     border: 1px solid #ddd;
     padding: 8px;
-    text-align: left;
+    text-align: center;
   }
   
   #chart tr:nth-child(even) {
@@ -25,18 +26,20 @@
   #chart th {
     background-color: #4CAF50;
     color: white;
+    overflow: hidden;
   }
 
 body
 {
   background-image: url("https://cdn.dribbble.com/users/966681/screenshots/2890732/media/3aef32cd435d242fb7a09f714ab7dac6.gif");
   background-repeat: no-repeat;
-  background-size: contain;
-  height:80vh;
+  background-size: cover;
+  height:100vh;
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
   background-position: 50% 0;
-  animation: slowBackground 10s;
+  animation: slowBackground 20s;
+  overflow: hidden;
 } 
