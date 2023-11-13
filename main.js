@@ -125,10 +125,16 @@ function updateTeamTable() {
         <td>${team.breakPoint ? 'Broken' : 'Not Broken'}</td>
         <td>${team.bDEF}</td>
         <td>
-        <button onclick="updateLoad(${index})">Update Load</button>
-        <button onclick="updateBDEF(${index})">Update BDEF</button>
-        <button onclick="markAsBroken(${index})">Mark as Broken</button>
+        <button onclick="markAsBroken(${index})">Broken?</button>
         </td>
+
+        <div class="dropdown">
+            <button class="dropbtn">...</button>
+            <div class="dropdown-content">
+                <button onclick="updateLoad(${index})">Update Load</button>
+                <button onclick="updateBDEF(${index})">Update BDEF</button>
+            </div>
+        </div>
     `;
     });
 }

@@ -123,12 +123,12 @@ button:focus {
 
 /* DROPDOWN CSS */
 .dropbtn {
-  position: fixed;
-  bottom: 1%;
-  right: 1%;
-  background-color: #221919;
-  color: white;
-  padding: 13px;
+  position: absolute;
+  bottom: 10%;
+  right: 10%;
+  background-color: #ffffff;
+  color: rgb(71, 71, 71);
+  padding: 5px;
   font-size: 13px;
   border: none;
   cursor: pointer;
@@ -141,7 +141,7 @@ button:focus {
 
 .dropdown-content {
   display: none;
-  position: fixed;
+  position: absolute;
   bottom: 8%;
   right: 8%;
   background-color: #f9f9f9;
