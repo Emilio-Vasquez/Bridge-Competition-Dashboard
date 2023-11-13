@@ -120,7 +120,7 @@ function updateTeamTable() {
         <td>${team.name}</td>
         <td>${team.tableNumber}</td>
         <td>${team.bridgeWeight}</td>
-        <td>${team.score}</td>
+        <td>${Math.round(team.score*100)/100}</td>
         <td>${team.load}</td>
         <td>${team.breakPoint ? 'Broken' : 'Not Broken'}</td>
         <td>${team.bDEF}</td>
