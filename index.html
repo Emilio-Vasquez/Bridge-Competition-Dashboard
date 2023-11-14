@@ -20,13 +20,14 @@
   <table id="teamTable">
     <thead>
       <tr>
+        <th>Rank</th>
         <th>Team</th>
         <th>Table</th>
         <th>Bridge Weight</th>
-        <th>Score</th>
         <th>Load</th>
-        <th>Broken?</th>
         <th>BDEF</th>
+        <th>Broken?</th>
+        <th>Score</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -43,9 +44,10 @@
   </div> -->
   
   <!-- Add a button and a div for displaying team info -->
-  <input type="number" id="loadAllInput" placeholder = "Add Load to All">
-  <button id = "loadAllButton">Load All</button>
-  <div id="teamInfo"></div>
+  <div loadAll>
+      <input type="number" id="loadAllInput" placeholder = "Add Load to All">
+      <button id = "loadAllButton">Load All</button>
+  </div>
   
   <!-- <canvas id="teamChart" width="400" height="200"></canvas> Add a canvas element for the chart -->
   <!-- <canvas id="teamChart" width="400" height="200"></canvas> -->
@@ -57,5 +59,12 @@
       <button id="addTeamButton">Add Team</button>
     </div>
   </div>
+
+  <div id="teamEdit">
+    <select name = "teamSelect">
+        <option value="1">Number 1</option>
+        <option value="2">Number 2</option>
+        <option value="3">Number 3</option>
+    </select>
   
   
