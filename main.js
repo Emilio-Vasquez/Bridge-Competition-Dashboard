@@ -66,7 +66,7 @@ function addTeam() {
 // Function to calculate all teams' scores
 function calculateScores() {
     // set up variables for maxmimum/minimum values
-    let [bwMax, lpMax, mdrMax, bwMin, lpMin, mdrMin] = [0, 0, 0, 0, 0, 0];
+    let [bwMax, lpMax, mdrMax, bwMin, lpMin, mdrMin] = [teams[0].bridgeWeight, teams[0].load, teams[0].bridgeWeight/teams[0].load, teams[0].bridgeWeight, teams[0].load, teams[0].bridgeWeight/teams[0].load];
 
     // loop through teams once to determine maxes/mins
     for (let i = 0; i < teams.length; i++){
@@ -104,6 +104,9 @@ function calculateScores() {
         let mdrr = 1 + (49/(mdrMax - mdrMin) * (mdrMax - currentTeam.mdr));
 
         let score = currentTeam.bDEF + bwr + lpr + mdrr;
+
+        console.log(currentTeam.name + "'s BDEF: " + currentTeam.bDEF + " BWR: " + bwr + " LPR: " + " MDRR: " + mdrr);
+
         currentTeam.score = currentTeam.bDEF + bwr + lpr + mdrr;
     }
 
@@ -120,10 +123,10 @@ function updateTeamTable() {
         <td>${team.name}</td>
         <td>${team.tableNumber}</td>
         <td>${team.bridgeWeight}</td>
-        <td>${Math.round(team.score*100)/100}</td>
         <td>${team.load}</td>
-        <td>${team.breakPoint ? 'Broken' : 'Not Broken'}</td>
         <td>${team.bDEF}</td>
+        <td>${team.breakPoint ? 'Broken' : 'Not Broken'}</td>
+        <td>${Math.round(team.score*100)/100}</td>
         <td>
         <button onclick="markAsBroken(${index})">Broken?</button>
         </td>
