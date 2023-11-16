@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html style ="text-align:center;">
   <div style ="text-align: center;">
     <head>
       <title>Bridge Competition Manager</title>
@@ -12,33 +12,58 @@
 </body>
 </html>
 <body>
-  <div class="iframe-background">
-    <iframe src='https://my.spline.design/untitled-d3f33745fe35970fb781297a5c75919f/' frameborder='0' width='100%' height='100%'></iframe>
+  <iframe src='https://my.spline.design/untitled-d3f33745fe35970fb781297a5c75919f/' frameborder='0' width='100%' height='100%'>
+    <!--placeholder-->
+  </iframe>
+  <div class="announcement">
     <div class="content">
       
-      <h1>Bridge Competition Manager</h1>
-      <table id="teamTable">
-        <thead>
-          <tr>
-            <th>Rank</th>
-            <th>Team</th>
-            <th>Table</th>
-            <th>Bridge Weight</th>
-            <th>Load</th>
-            <th>BDEF</th>
-            <th>Broken?</th>
-            <th>Score</th>
-            <th>Action</th>
+      <h2>
+        WELCOME TO THE ANNUAL 2023 UNION COLLEGE OF UNION COUNTY, NJ
+      </h2>
+      <h1>
+        Building Bridge Competition
+      </h1>
+
+
+      <table id="teamTable", class="teamTable">
+        <tr class = "tableAttributes">
+          <th>Rank</th>
+          <th>Team</th>
+          <th>Table</th>
+          <th>Bridge Weight</th>
+          <th>Load</th>
+          <th>BDEF</th>
+          <th>Broken?</th>
+          <th>Score</th>
+          <th>Action</th>
         </tr>
+        <tbody id="teamTableBody",class="teamTableBody">
+          <!-- Team items will be added here -->
+        </tbody>
+      </table>
     </div>
   </div>
 
-      </tr>
-    </thead>
-    <tbody id="teamTableBody">
-      <!-- Team items will be added here -->
-    </tbody>
-  </table>
+
+
+  
+  <span class="topThreeWinners">
+    <h4>
+      Team Winner 1
+    </h4>
+    
+    <h4>
+      Team Winner 2
+    </h4>
+    
+    <h4>
+      Team Winner 3
+      <!--put first three rows here n stuff-->
+    </h4>
+  </span>
+
+
   
   <!-- <div id="chartPanel">
     <h2>Team Chart</h2>
@@ -48,26 +73,28 @@
   </div> -->
   
   <!-- Add a button and a div for displaying team info -->
-  <div loadAll>
+  <div loadAll, class="loadAll">
       <input type="number" id="loadAllInput" placeholder = "Add Load to All">
       <button id = "loadAllButton">Load All</button>
   </div>
   
   <!-- <canvas id="teamChart" width="400" height="200"></canvas> Add a canvas element for the chart -->
   <!-- <canvas id="teamChart" width="400" height="200"></canvas> -->
-  <div style ="text-align: center;">
-    <div id="teamCreation">
-      <input type="text" id="teamNameInput" placeholder="Enter Team Name">
-      <input type="number" id="tableNumberInput" placeholder="Table Number">
-      <input type="number" id="bridgeWeightInput" placeholder="Enter Bridge Weight">
-      <button id="addTeamButton">Add Team</button>
-    </div>
+  
+  <div id="teamCreation", style="text-align: center;", class="teamCreation">
+    <input type="text" id="teamNameInput" placeholder="Enter Team Name">
+    <input type="number" id="tableNumberInput" placeholder="Table Number">
+    <input type="number" id="bridgeWeightInput" placeholder="Enter Bridge Weight">
+    <button id="addTeamButton">Add Team</button>
   </div>
+  
 
-  <div id="teamEdit">
+  <div id="teamEdit",class="teamEdit">
     <select name = "teamSelect">
         <option value="1">Number 1</option>
         <option value="2">Number 2</option>
         <option value="3">Number 3</option>
     </select>
+  </div>
+</body>
   

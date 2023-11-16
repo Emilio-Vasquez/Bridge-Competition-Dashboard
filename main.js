@@ -118,30 +118,58 @@ function updateTeamTable() {
     teamTableBody.innerHTML = '';
     teams.forEach((team, index) => {
     const row = teamTableBody.insertRow();
+    row.className = 'actualTable';
     row.innerHTML = `
-        <td>${index+1}</td>
-        <td>${team.name}</td>
-        <td>${team.tableNumber}</td>
-        <td>${team.bridgeWeight}</td>
-        <td>${team.load}</td>
-        <td>${team.bDEF}</td>
-        <td>${team.breakPoint ? 'Broken' : 'Not Broken'}</td>
-        <td>${Math.round(team.score*100)/100}</td>
-        <td>
-        <button onclick="markAsBroken(${index})">Broken?</button>
-        </td>
+        
+        
+        <div>
+            <tr>
+                <td style="color:red;">${index+1}</td>
+                <td>${team.name}</td>
+                <td>${team.tableNumber}</td>
+                <td>${team.bridgeWeight}</td>
+                <td>${team.load}</td>
+                <td>${team.bDEF}</td>
+                <td>${team.breakPoint ? 'Broken' : 'Not Broken'}</td>
+                <td>${Math.round(team.score*100)/100}</td>
+                <td>
+                    <button onclick="markAsBroken(${index})">Broken?</button>
+                </td>
+            </tr>
 
-        <div class="dropdown">
-            <button class="dropbtn">...</button>
-            <div class="dropdown-content">
-                <button onclick="updateLoad(${index})">Update Load</button>
-                <button onclick="updateBDEF(${index})">Update BDEF</button>
+            <div class="dropdown">
+                <button class="dropbtn">...</button>
+                <div class="dropdown-content">
+                    <button onclick="updateLoad(${index})">Update Load</button>
+                    <button onclick="updateBDEF(${index})">Update BDEF</button>
+                </div>
             </div>
         </div>
     `;
     });
+    updateBoldRows();
 }
   
+
+function updateBoldRows() {
+    let table = document.getElementById("teamTableBody");
+    let rows = table.rows;
+
+    // Remove bold from all rows
+    for (let i = 0; i < rows.length; i++) {
+        rows[i].classList.remove("boldRow");
+    }
+
+    // Apply bold to the top three rows
+    for (let i = 0; i < Math.min(3, rows.length); i++) {
+        rows[i].classList.add("boldRow");
+    }
+}
+
+window.onload = function() {
+    updateBoldRows();
+};
+
 
 // Function to update the Chart.js chart
 // function updateChart() {
@@ -229,5 +257,8 @@ function markAsBroken(index) {
   
 // Event listener for the "Add Team" button
 addTeamButton.addEventListener('click', addTeam);
+addTeamButton.addEventListener('click', updateBoldRows);
+    
+
 
 loadAllButton.addEventListener('click', loadAll);
