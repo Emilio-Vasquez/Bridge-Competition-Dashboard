@@ -6,6 +6,7 @@ const teamTableBody = document.getElementById('teamTableBody');
 // const teamChart = document.getElementById('teamChart').getContext('2d'); // Get the chart context
 const loadAllButton = document.getElementById('loadAllButton');
 const loadAllInput = document.getElementById('loadAllInput');
+let teamSelectBox = document.getElementById('teamSelect');
   
 // Array to store teams
 const teams = [];
@@ -36,6 +37,7 @@ function compareTeams(a, b) {
     }
     return 0;
 }
+
 
 function sortTeams(teams){
     teams.sort(compareTeams);
@@ -148,8 +150,37 @@ function updateTeamTable() {
     `;
     });
     updateBoldRows();
+    teamElementArray = []
+    console.log(teamSelectBox);
+    for (let i = teamSelectBox.options.length-1; i >= 0; i--) {
+        teamSelectBox.remove(i)
+    }
+    for (let i = 0; i < teams.length; i++){
+        let teamElement = document.createElement("option");
+        teamElement.textContent = "Table " + teams[i].tableNumber + ": " + teams[i].name;
+        teamElement.value = i;
+        teamElementArray.push(teamElement);
+    }
+    teamElementArray.sort(compareElementArray);
+    for (let i = 0; i < teamElementArray.length; i++){
+        console.log("teamElementArray[" + i + "]'s textContent is " + teamElementArray[i].textContent +", and its rank is " + (teamElementArray[i].value+1));
+        teamSelect.append(teamElementArray[i]);
+    }
+
 }
-  
+
+//really hacky solution to sort the element array by the team's table number
+function compareElementArray(a, b) {
+    //if the team's table number at the index of the element's value in "teams" array is lower, bring it up. Otherwise, bring it down
+    if (teams[a.value].tableNumber > teams[b.value].tableNumber){
+            return 1;
+        }
+        if (teams[b.value].tableNumber > teams[a.value].tableNumber){
+            return -1;
+        }
+        return 0;
+}
+
 
 function updateBoldRows() {
     let table = document.getElementById("teamTableBody");
