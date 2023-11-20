@@ -56,13 +56,50 @@ body{
   text-align: center;
   display: flex;
   justify-content: center;
+  width: 80%;
+  margin: 0 auto;
   
+}
+
+.movementforBottom{
+  position: fixed;
+  bottom: 5px;
+  right: 15%;
+  display: grid;
+  justify-content: center;
+  grid-auto-flow: column;
+  gap:15px;
 }
 
 .loadAll
 {
+  
+  
+  z-index: 2;
+  
+  display: grid;
+  justify-content: center;
+  grid-auto-flow: row;
+   
+}
+
+.teamCreation
+{
+  
+  
+  display: grid;
+  grid-auto-flow: row;
+  
+  z-index: 2;
+  
+}
+
+.teamEdit
+{
   position: fixed;
-  bottom:2%;
+  z-index: 2;
+  bottom: 5%;
+  left: 5%;
 }
 
 .teamTableBody{
@@ -80,16 +117,41 @@ body{
 
 .topThreeWinners
 {
-  padding: 10px 15px;
+  
   position: fixed;
   left: 5%;
-  top: 50vh;
-  align-items: center;
-  text-align: center;
-  background-color: #0066cc;
-  border-radius: 10px;
+  top: 40vh;
+  display: grid;
+  justify-content: center;
+  grid-auto-flow: row;
+  gap:20px;
+  
+  
 }
 
+.winnerOne{
+  padding: 15px 40px;
+  background-color: #af4c4c;
+  border-radius: 5%;
+  
+  
+}
+
+.winnerTwo{
+  padding: 15px 40px;
+  background-color: #af4c4c;
+  border-radius: 5%;
+}
+
+.winnerThree{
+  padding: 15px 40px;
+  background-color: #af4c4c;
+  border-radius: 5%;
+}
+
+.pColorteam{
+  color: white;
+}
 
 /* .announcement
 {
@@ -129,15 +191,7 @@ iframe {
   flex-direction: column;
 }
 
-.announcement
-{
-  position:fixed;
-  
-  z-index: 2;
-  top: 5%;
-  display: flex;
-  justify-content: center;
-}
+
 
 .wholeTableOutput
 {
@@ -154,44 +208,30 @@ iframe {
 }
 .teamTable
 {
-  position: fixed;
+  justify-content:left;
+  position: relative;
   z-index: 2;
-  top: 15%;
+  top: 10px;
   display:flex;
   flex-direction: column;
-  gap: 10px;
-
   
-  
-  
+  gap:10px;
   /* display: flex;
   justify-content: center; */
-
-  
+}
+.teamAttributes{
+  justify-content: left;
 }
 
 .actualTable{
   display:grid;
   grid-auto-flow: column;
-  justify-content: center;
-  gap: 20px;
+  justify-content: left;
+  gap: 50px;
 }
 
-.teamCreation
-{
-  position: fixed;
-  align-items: center;
-  z-index: 2;
-  bottom:5%;
-}
 
-.teamEdit
-{
-  position: fixed;
-  z-index: 2;
-  bottom: 5%;
-  right: 5%;
-}
+
 
 input[type="text"] {
   width: 200px; 
