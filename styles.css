@@ -212,7 +212,7 @@ iframe {
   position: relative;
   z-index: 2;
   top: 10px;
-  display:flex;
+/*  display:flex;*/
   flex-direction: column;
   
   gap:10px;
@@ -223,12 +223,12 @@ iframe {
   justify-content: left;
 }
 
-.actualTable{
+/*.actualTable{
   display:grid;
   grid-auto-flow: column;
   justify-content: left;
   gap: 50px;
-}
+}*/
 
 
 
