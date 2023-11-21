@@ -124,29 +124,23 @@ function updateTeamTable() {
     row.innerHTML = `
         
         
-        <div>
+        <table>
+            <colgroup>
+                <col span="2">
+            </colgroup>
             <tr>
-                <td style="color:red;">${index+1}</td>
-                <td>${team.name}</td>
-                <td>${team.tableNumber}</td>
-                <td>${team.bridgeWeight}</td>
-                <td>${team.load}</td>
-                <td>${team.bDEF}</td>
-                <td>${team.breakPoint ? 'Broken' : 'Not Broken'}</td>
-                <td>${Math.round(team.score*100)/100}</td>
-                <td>
-                    <button onclick="markAsBroken(${index})">Broken?</button>
-                </td>
+                <th style="color:red;">${index+1}</th>
+                <th>${team.tableNumber}</th>
+                <th>${team.name}</th>
+                <th>${team.bridgeWeight}</th>
+                <th>${team.load}</th>
+                <th>${team.bDEF}</th>
+                <th>${team.breakPoint ? 'Broken' : 'Not Broken'}</th>
+                <th>${Math.round(team.score*100)/100}</th>
             </tr>
+            
 
-            <div class="dropdown">
-                <button class="dropbtn">...</button>
-                <div class="dropdown-content">
-                    <button onclick="updateLoad(${index})">Update Load</button>
-                    <button onclick="updateBDEF(${index})">Update BDEF</button>
-                </div>
-            </div>
-        </div>
+        </table>
     `;
     });
     updateBoldRows();

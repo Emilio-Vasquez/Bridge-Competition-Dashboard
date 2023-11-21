@@ -131,7 +131,7 @@ body{
 
 .winnerOne{
   padding: 15px 40px;
-  background-color: #af4c4c;
+  background-color: rgb(176, 51, 51);
   border-radius: 5%;
   
   
@@ -139,13 +139,13 @@ body{
 
 .winnerTwo{
   padding: 15px 40px;
-  background-color: #af4c4c;
+  background-color: rgb(176, 51, 51);
   border-radius: 5%;
 }
 
 .winnerThree{
   padding: 15px 40px;
-  background-color: #af4c4c;
+  background-color: rgb(176, 51, 51);
   border-radius: 5%;
 }
 
@@ -181,7 +181,7 @@ iframe {
   border: none;
 }
 .content {
-  position:fixed;
+  position:relative;
   align-items: center;
   text-align: center;
   top: 5%;
@@ -191,7 +191,24 @@ iframe {
   flex-direction: column;
 }
 
+.heading{
+  z-index:5;
 
+}
+
+.welcome{
+  font-family: "Myriad Pro", Myriad, "Liberation Sans", "Nimbus Sans L", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.buildingCompWelcome{
+  font-family: "Myriad Pro", Myriad, "Liberation Sans", "Nimbus Sans L", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.sectionOne{
+  position: static;
+  display: grid;
+  grid-auto-flow: row;
+}
 
 .wholeTableOutput
 {
@@ -224,13 +241,14 @@ iframe {
 }
 
 .actualTable{
-  display:grid;
-  grid-auto-flow: column;
+  
   justify-content: left;
-  gap: 50px;
+  
 }
 
-
+th{
+  margin: 10px;
+}
 
 
 input[type="text"] {
