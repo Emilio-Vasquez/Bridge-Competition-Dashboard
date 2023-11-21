@@ -8,6 +8,10 @@ const teamTableBody = document.getElementById('teamTableBody');
 const loadAllButton = document.getElementById('loadAllButton');
 const loadAllInput = document.getElementById('loadAllInput');
 let teamSelectBox = document.getElementById('teamSelect');
+
+const teamWinnerName1 = document.getElementById('teamWinnerName1');
+const teamWinnerName2 = document.getElementById('teamWinnerName2');
+const teamWinnerName3 = document.getElementById('teamWinnerName3');
   
 // Array to store teams
 const teams = [];
@@ -119,13 +123,10 @@ function calculateScores() {
 // Function to update the team table
 function updateTeamTable() {
     teamTable.innerHTML = `
-        <colgroup>
-            <col span="8" style = "background-color:yellow">
-        </colgroup>
         <tr class = "tableAttributes">
             <th>Rank</th>
-            <th>Team</th>
             <th>Table</th>
+            <th>Team</th>
             <th>Bridge Weight</th>
             <th>Load</th>
             <th>BDEF</th>
@@ -139,26 +140,29 @@ function updateTeamTable() {
     row.innerHTML = `
         
         
-        <table>
-            <colgroup>
-                <col span="2">
-            </colgroup>
+
             <tr>
-                <th style="color:red;">${index+1}</th>
-                <th>${team.tableNumber}</th>
-                <th>${team.name}</th>
-                <th>${team.bridgeWeight}</th>
-                <th>${team.load}</th>
-                <th>${team.bDEF}</th>
-                <th>${team.breakPoint ? 'Broken' : 'Not Broken'}</th>
-                <th>${Math.round(team.score*100)/100}</th>
+                <td style="color:red;">${index+1}</td>
+                <td>${team.tableNumber}</td>
+                <td>${team.name}</td>
+                <td>${team.bridgeWeight}</td>
+                <td>${team.load}</td>
+                <td>${team.bDEF}</td>
+                <td>${team.breakPoint ? 'Broken' : 'Not Broken'}</td>
+                <td>${Math.round(team.score*100)/100}</td>
             </tr>
             
 
-        </table>
     `;
     });
     updateBoldRows();
+    teamWinnerName1.innerHTML = teams[0].name.substring(0,10);
+    if (teams.length > 1){
+        teamWinnerName2.innerHTML = teams[1].name.substring(0,10);
+    }
+    if (teams.length > 2){
+        teamWinnerName3.innerHTML = teams[2].name.substring(0,10);
+    }
     teamElementArray = []
     console.log(teamSelectBox);
     for (let i = teamSelectBox.options.length-1; i >= 0; i--) {
