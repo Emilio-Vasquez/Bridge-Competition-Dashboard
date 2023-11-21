@@ -6,46 +6,49 @@
       <title>Bridge Competition Manager</title>
       <link rel="stylesheet" href="styles.css">
       <script src="main.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </head>
+<!-- chart we do not need but is here for posterity:   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
   </div>
-</head>
-</body>
 </html>
 <body>
   <iframe src='https://my.spline.design/untitled-d3f33745fe35970fb781297a5c75919f/' frameborder='0' width='100%' height='100%'>
     <!--placeholder-->
   </iframe>
   
-  <!-- <div class="content"> -->
-  <section class="sectionOne">
-    <div class = "heading">
-      <div class="welcome", style = "font-size:40px; opacity: 50%; color:rgb(176, 51, 51);">
-        WELCOME TO THE ANNUAL 2023 UNION COLLEGE OF UNION COUNTY, NJ
-      </div>
-      <div class="buildingCompWelcome", style="font-size:120px; color: rgb(176, 51, 51);">
-        Building Bridge Competition
-      </div>
-    </div>
-  
-    <div class="content">
-      <table id="teamTable", class="teamTable">
-        <tr class = "tableAttributes">
-          <th>Rank</th>
-          <th>Table</th>
-          <th>Team</th>
-          <th>Bridge Weight</th>
-          <th>Load</th>
-          <th>BDEF</th>
-          <th>Broken?</th>
-          <th>Score</th>
-        </tr>
-        <tbody id="teamTableBody",class="teamTableBody">
-            <!-- Team items will be added here -->
-        </tbody>
-      </table>
-    </div>
-  </section>
-  
+  <div class="content">
+      
+    <h2>
+      WELCOME TO THE ANNUAL 2023 UNION COLLEGE OF UNION COUNTY, NJ
+    </h2>
+    <h1>
+      Building Bridge Competition
+    </h1>
+
+    <table id="teamTable", class="teamTable">
+      <colgroup>
+        <col span="8" style = "background-color:yellow">
+      </colgroup>
+      <tr class = "tableAttributes">
+        <th>Rank</th>
+        <th>Team</th>
+        <th>Table</th>
+        <th>Bridge Weight</th>
+        <th>Load</th>
+        <th>BDEF</th>
+        <th>Broken?</th>
+        <th>Score</th>
+        <th>Action</th>
+      </tr>
+      <tbody id="teamTableBody",class="teamTableBody">
+          <!-- Team items will be added here -->
+      </tbody>
+    </table>
+
+    
+    
+    
+
+  </div>
   
   
 
@@ -109,6 +112,11 @@
         <option value="2">Number 2</option>
         <option value="3">Number 3</option>
     </select>
+    <button onclick="markAsBroken(teamSelectBox.value)">Broken?</button>
+    <button onclick="updateLoad(teamSelectBox.value)">Update Load</button>
+    <button onclick="updateBDEF(teamSelectBox.value)">Update BDEF</button>
+
+
   </div>
 
   <div class="movementforBottom">

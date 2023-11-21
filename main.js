@@ -2,6 +2,7 @@ const teamNameInput = document.getElementById('teamNameInput');
 const bridgeWeightInput = document.getElementById('bridgeWeightInput');
 const tableNumberInput = document.getElementById('tableNumberInput');
 const addTeamButton = document.getElementById('addTeamButton');
+const teamTable = document.getElementById('teamTable');
 const teamTableBody = document.getElementById('teamTableBody');
 // const teamChart = document.getElementById('teamChart').getContext('2d'); // Get the chart context
 const loadAllButton = document.getElementById('loadAllButton');
@@ -117,10 +118,24 @@ function calculateScores() {
   
 // Function to update the team table
 function updateTeamTable() {
-    teamTableBody.innerHTML = '';
+    teamTable.innerHTML = `
+        <colgroup>
+            <col span="8" style = "background-color:yellow">
+        </colgroup>
+        <tr class = "tableAttributes">
+            <th>Rank</th>
+            <th>Team</th>
+            <th>Table</th>
+            <th>Bridge Weight</th>
+            <th>Load</th>
+            <th>BDEF</th>
+            <th>Broken?</th>
+            <th>Score</th>
+        </tr>
+      `;
     teams.forEach((team, index) => {
-    const row = teamTableBody.insertRow();
-    row.className = 'actualTable';
+    const row = teamTable.insertRow();
+    row.className = 'teamTable';
     row.innerHTML = `
         
         
@@ -157,7 +172,7 @@ function updateTeamTable() {
     }
     teamElementArray.sort(compareElementArray);
     for (let i = 0; i < teamElementArray.length; i++){
-        console.log("teamElementArray[" + i + "]'s textContent is " + teamElementArray[i].textContent +", and its rank is " + (teamElementArray[i].value+1));
+        console.log("teamElementArray[" + i + "]'s textContent is " + teamElementArray[i].textContent +", and its rank is " + (Number(teamElementArray[i].value)+Number(1)));
         teamSelect.append(teamElementArray[i]);
     }
 
@@ -177,7 +192,7 @@ function compareElementArray(a, b) {
 
 
 function updateBoldRows() {
-    let table = document.getElementById("teamTableBody");
+    let table = document.getElementById("teamTable");
     let rows = table.rows;
 
     // Remove bold from all rows
@@ -186,7 +201,7 @@ function updateBoldRows() {
     }
 
     // Apply bold to the top three rows
-    for (let i = 0; i < Math.min(3, rows.length); i++) {
+    for (let i = 1; i < Math.min(4, rows.length); i++) {
         rows[i].classList.add("boldRow");
     }
 }
