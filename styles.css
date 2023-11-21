@@ -223,19 +223,20 @@ iframe {
   
   
 }
-.teamTable
+
+
+
+/* .teamTable
 {
   justify-content:left;
-  position: relative;
+  border: 1px solid;
+  position: static;
   z-index: 2;
   top: 10px;
-/*  display:flex;*/
   flex-direction: column;
-  
   gap:10px;
-  /* display: flex;
-  justify-content: center; */
-}
+  
+} */
 .teamAttributes{
   justify-content: left;
 }
@@ -243,11 +244,17 @@ iframe {
 .actualTable{
   
   justify-content: left;
-  
+  border: #0066cc;
 }
 
 th{
   margin: 10px;
+  border: 1px solid;
+}
+
+td{
+  margin: 10px;
+  border: 1px solid;
 }
 
 
