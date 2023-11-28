@@ -45,11 +45,7 @@ h3
   font-size: large;
 }
 
-.boldRow {
-  font-weight: bold;
-  font-size: 30px;
 
-}
 
 body{
   align-items: center;
@@ -184,7 +180,7 @@ iframe {
   position:relative;
   align-items: center;
   text-align: center;
-  top: 5%;
+  top: -40px;
   z-index: 2;
   display:flex;
   justify-content: center;
@@ -200,8 +196,10 @@ iframe {
   font-family: "Myriad Pro", Myriad, "Liberation Sans", "Nimbus Sans L", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-.buildingCompWelcome{
-  font-family: "Myriad Pro", Myriad, "Liberation Sans", "Nimbus Sans L", "Helvetica Neue", Helvetica, Arial, sans-serif;
+.buildingCompWelcome {
+    font-family: "Myriad Pro", Myriad, "Liberation Sans", "Nimbus Sans L", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    position: relative;
+    top: -30px;
 }
 
 .sectionOne{
@@ -212,8 +210,9 @@ iframe {
 
 .wholeTableOutput
 {
-  position:fixed;
-  
+
+    position:relative;
+  top: -10px;
 }
 .tableAttributes{
   justify-content: center;
@@ -233,7 +232,12 @@ iframe {
   top: 10px;
   flex-direction: column;
   gap:10px;
-  
+  font-size: 24px;
+}
+
+.boldRow {
+    font-weight: bold;
+    font-size: 30px;
 }
 .teamAttributes{
   justify-content: left;
@@ -247,11 +251,12 @@ iframe {
 
 th{
   font-size: 30px;
-  padding : 15px;
+  padding : 8px;
 }
 
-td{
-   padding : 5px 20px;
+td {
+    padding: 0px 20px;
+    
 }
 
 
