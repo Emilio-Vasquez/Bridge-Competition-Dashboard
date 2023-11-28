@@ -263,15 +263,50 @@ function updateLoad(index) {
 }
 
 function updateBDEF(index) {
-const bDEF = parseFloat(prompt(`Enter BDEF for ${teams[index].name}:`));
-if (!isNaN(bDEF)) {
-    teams[index].bDEF = bDEF;
-    calculateScores();
-    sortTeams(teams);
-    updateTeamTable();
-    // updateChart();
+    const bDEF = parseFloat(prompt(`Enter BDEF for ${teams[index].name}:`));
+    if (!isNaN(bDEF)) {
+        teams[index].bDEF = bDEF;
+        calculateScores();
+        sortTeams(teams);
+        updateTeamTable();
+        // updateChart();
+    }
 }
+
+function updateBridgeWeight(index) {
+    const bridgeWeight = parseFloat(prompt(`Enter Bridge Weight for ${teams[index].name}:`));
+    if (!isNaN(bridgeWeight)) {
+        teams[index].bridgeWeight = bridgeWeight;
+        calculateScores();
+        sortTeams(teams);
+        updateTeamTable();
+        // updateChart();
+    }
 }
+
+function updateTableNumber(index) {
+    const tableNumber = parseFloat(prompt(`Enter Table Number for ${teams[index].name}:`));
+    if (!isNaN(tableNumber)) {
+        teams[index].tableNumber = tableNumber;
+        calculateScores();
+        sortTeams(teams);
+        updateTeamTable();
+        // updateChart();
+    }
+}
+
+
+function removeTeam(index) {
+    const removeChoice = confirm(`Are you sure you want to remove ${teams[index].name}?`);
+        if (removeChoice) {
+            teams.splice(index, 1);
+            calculateScores();
+            sortTeams(teams);
+            updateTeamTable();
+        }
+}
+
+
 // function to update load of all teams
 function loadAll() {
         

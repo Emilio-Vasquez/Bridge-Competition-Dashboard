@@ -60,7 +60,7 @@ body{
 .movementforBottom{
   position: fixed;
   bottom: 5px;
-  right: 15%;
+  right: 1%;
   display: grid;
   justify-content: center;
   grid-auto-flow: column;
@@ -94,8 +94,8 @@ body{
 {
   position: fixed;
   z-index: 2;
-  bottom: 5%;
-  left: 5%;
+  bottom: 1%;
+  left: 1%;
 }
 
 .teamTableBody{
@@ -115,7 +115,7 @@ body{
 {
   
   position: fixed;
-  left: 5%;
+  left: 1%;
   top: 40vh;
   display: grid;
   justify-content: center;
