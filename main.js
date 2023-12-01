@@ -123,6 +123,7 @@ function calculateScores() {
 // Function to update the team table
 function updateTeamTable() {
     teamTable.innerHTML = `
+    
         <tr class = "tableAttributes">
             <th>Rank</th>
             <th>Table</th>
@@ -133,6 +134,7 @@ function updateTeamTable() {
             <th>Broken?</th>
             <th>Score</th>
         </tr>
+    
       `;
     teams.forEach((team, index) => {
     const row = teamTable.insertRow();
