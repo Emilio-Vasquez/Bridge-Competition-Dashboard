@@ -127,35 +127,65 @@ body{
 {
   
   position: fixed;
-  left: 1%;
+  left: 4%;
   top: 40vh;
   display: grid;
   justify-content: center;
   grid-auto-flow: row;
   gap:20px;
-  
-  
 }
+
+
 
 .winnerOne{
   padding: 15px 40px;
   background-color: rgb(176, 51, 51);
   border-radius: 5%;
-  
-  
+  animation-name: winnerOneAni;
+  animation-duration: 7s;
+  animation-fill-mode: forwards;
 }
 
 .winnerTwo{
   padding: 15px 40px;
   background-color: rgb(176, 51, 51);
   border-radius: 5%;
+  animation-name: winnerTwoAni;
+  animation-duration: 7s;
+  animation-fill-mode: forwards;
 }
 
 .winnerThree{
   padding: 15px 40px;
   background-color: rgb(176, 51, 51);
   border-radius: 5%;
+  animation-name: winnerThreeAni;
+  animation-duration: 7s;
+  animation-fill-mode: forwards;
+  
 }
+
+@keyframes winnerOneAni {
+  from {scale: 0.5; box-shadow: 0; }
+  to {padding: 15px 40px; box-shadow: 10px 10px #66666683;  }
+}
+
+@keyframes winnerTwoAni {
+  from {scale: 0.5; box-shadow: 0; }
+  to {padding: 15px 40px; box-shadow: 10px 10px #66666683;  }
+}
+
+@keyframes winnerThreeAni {
+  from {scale: 0.5; box-shadow: 0; }
+  to {padding: 15px 40px; box-shadow: 10px 10px #66666683;  }
+}
+
+
+
+
+
+
+
 
 .pColorteam{
   color: white;
@@ -209,9 +239,9 @@ iframe {
 }
 
 .buildingCompWelcome {
-    font-family: "Myriad Pro", Myriad, "Liberation Sans", "Nimbus Sans L", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    position: relative;
-    top: -30px;
+  font-family: "Myriad Pro", Myriad, "Liberation Sans", "Nimbus Sans L", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  position: relative;
+  top: -20px;
 }
 
 .sectionOne{
@@ -236,10 +266,9 @@ iframe {
 }
 
 
-
 .teamTable
 {
-  background-color: rgba(147, 86, 86, 0.375);
+  background-color: rgba(255, 255, 255, 0.375);
   backdrop-filter: blur(10px);
   border-radius: 10px;
   justify-content:left;
