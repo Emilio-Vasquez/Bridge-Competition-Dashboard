@@ -158,12 +158,12 @@ function updateTeamTable() {
     `;
     });
     updateBoldRows();
-    teamWinnerName1.innerHTML = teams[0].name.substring(0,10);
+    teamWinnerName1.innerHTML = truncateTeamName(teams[0].name, 18)
     if (teams.length > 1){
-        teamWinnerName2.innerHTML = teams[1].name.substring(0,10);
+        teamWinnerName2.innerHTML = truncateTeamName(teams[1].name, 18);
     }
     if (teams.length > 2){
-        teamWinnerName3.innerHTML = teams[2].name.substring(0,10);
+        teamWinnerName3.innerHTML = truncateTeamName(teams[2].name, 18);
     }
     teamElementArray = []
     console.log(teamSelectBox);
@@ -182,6 +182,15 @@ function updateTeamTable() {
         teamSelect.append(teamElementArray[i]);
     }
 
+}
+
+function truncateTeamName(teamName, maxLength){
+    if (teamName.length > maxLength){
+        return (teamName.substring(0,maxLength-4)+"..."+teamName.slice(-1))
+    }
+    else{
+        return teamName;
+    }
 }
 
 //really hacky solution to sort the element array by the team's table number

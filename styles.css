@@ -48,10 +48,10 @@ h3
 .imageUCC{
   position: fixed; 
   z-index: 2; 
-  top: 2%; 
-  left: 0%;
-  width: 400px;
-  height: 400px;
+  top: 0%; 
+  left: -1%;
+  width: 250px;
+  height: 250px;
 }
 
 body{
@@ -127,18 +127,25 @@ body{
 {
   
   position: fixed;
-  left: 4%;
-  top: 40vh;
+  left: 2%;
+  top: 25%;
   display: grid;
   justify-content: center;
   grid-auto-flow: row;
   gap:20px;
 }
 
+.pColorteam{
+  color: white;
+}
+.pColorteamCurrentTitle{
+  color: white;
+  font-size: 20px;
+}
 
 
 .winnerOne{
-  padding: 15px 40px;
+  padding: 15px 15px;
   background-color: rgb(176, 51, 51);
   border-radius: 5%;
   animation-name: winnerOneAni;
@@ -147,7 +154,7 @@ body{
 }
 
 .winnerTwo{
-  padding: 15px 40px;
+  padding: 15px 15px;
   background-color: rgb(176, 51, 51);
   border-radius: 5%;
   animation-name: winnerTwoAni;
@@ -156,7 +163,7 @@ body{
 }
 
 .winnerThree{
-  padding: 15px 40px;
+  padding: 15px 15px;
   background-color: rgb(176, 51, 51);
   border-radius: 5%;
   animation-name: winnerThreeAni;
@@ -167,17 +174,17 @@ body{
 
 @keyframes winnerOneAni {
   from {scale: 0.5; box-shadow: 0; }
-  to {padding: 15px 40px; box-shadow: 10px 10px #66666683;  }
+  to {padding: 15px 15px; box-shadow: 10px 10px #66666683;  }
 }
 
 @keyframes winnerTwoAni {
   from {scale: 0.5; box-shadow: 0; }
-  to {padding: 15px 40px; box-shadow: 10px 10px #66666683;  }
+  to {padding: 15px 15px; box-shadow: 10px 10px #66666683;  }
 }
 
 @keyframes winnerThreeAni {
   from {scale: 0.5; box-shadow: 0; }
-  to {padding: 15px 40px; box-shadow: 10px 10px #66666683;  }
+  to {padding: 15px 15px; box-shadow: 10px 10px #66666683;  }
 }
 
 
@@ -187,9 +194,6 @@ body{
 
 
 
-.pColorteam{
-  color: white;
-}
 
 /* .announcement
 {
@@ -222,7 +226,7 @@ iframe {
   position:relative;
   align-items: center;
   text-align: center;
-  top: -40px;
+  top: -20px;
   z-index: 2;
   display:flex;
   justify-content: center;
