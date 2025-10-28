@@ -1,14 +1,25 @@
 // DOM element references
 const teamNameInput     = document.getElementById('teamNameInput');
 const bridgeWeightInput = document.getElementById('bridgeWeightInput');
-// Note: table numbers are no longer used.  The corresponding input has been removed.
-const tableNumberInput  = document.getElementById('tableNumberInput');
+// tableNumberInput is removed; we no longer use table numbers as a column in the UI
+// const tableNumberInput  = document.getElementById('tableNumberInput');
 const addTeamButton     = document.getElementById('addTeamButton');
 
 const loadAllButton     = document.getElementById('loadAllButton');
 const loadAllInput      = document.getElementById('loadAllInput');
 
 const teamSelectBox     = document.getElementById('teamSelect');
+
+// Toggle button to collapse/expand the team creation panel
+const toggleCreationButton = document.getElementById('toggleCreation');
+
+// Hint element displayed when the Add Team panel is collapsed
+const addTeamHint = document.getElementById('addTeamHint');
+
+// Initially hide the add team hint.  It becomes visible when the panel is collapsed.
+if (addTeamHint) {
+  addTeamHint.style.display = 'none';
+}
 
 // Winner name elements for Truss and Drawbridge standings
 const teamWinnerName1_truss = document.getElementById('teamWinnerName1_truss');
@@ -23,25 +34,27 @@ const teamWinnerName3_draw  = document.getElementById('teamWinnerName3_draw');
 const teams = [];
 let nextId = 1;
 
+// ======= Team Class =======
 /**
  * Team model representing a single bridge entry.  The constructor accepts
  * a team name, bridge weight (grams), table number, school (optional) and design (truss/drawbridge).
  */
 class Team {
-  constructor(name, bridgeWeight, tableNumber = null, school = '', design = 'truss') {
-    this.id          = nextId++;
-    this.name        = name;
-    this.school      = school;
-    this.design      = design;
-    // Table numbers are no longer used for sorting or display.  Keep a
-    // property for potential internal use, but default to null.
+  constructor(name, bridgeWeight, tableNumber, school = '', design = 'truss') {
+    this.id = nextId++;
+    this.name = name;
+    this.school = school;
+    this.design = design;
+    // We no longer display table numbers in the UI; however the property is
+    // retained internally for sorting or other potential uses.  Pass null
+    // when creating teams since there is no input field for it anymore.
     this.tableNumber = Number(tableNumber) || null;
-    this.bridgeWeight= Number(bridgeWeight) || 0; // grams
-    this.load        = 0;              // pounds of load carried
-    this.bDEF        = 10;             // default BDEF value
-    this.breakPoint  = false;          // false when not broken
-    this.mdr         = 0;              // mass to load ratio (bridge weight / load)
-    this.score       = 0;              // combined score used for ranking
+    this.bridgeWeight = Number(bridgeWeight) || 0; // grams
+    this.load = 0; // pounds of load carried
+    this.bDEF = 10; // default BDEF value
+    this.breakPoint = false; // false when not broken
+    this.mdr = 0; // mass to load ratio (bridge weight / load)
+    this.score = 0; // combined score used for ranking
     // When the bridge breaks, we capture its score at that moment.  This
     // prevents the score from changing as other teams continue loading.
     this.frozenScore = undefined;
@@ -57,73 +70,7 @@ function compareTeams(a, b) {
   return 0;
 }
 
-/**
- * Calculates scores for all teams using the competition's normalization formula.
- * The formula normalizes bridge weight, load and mass-to-load ratio across all teams.
- */
-// function calculateScores() {
-//   if (teams.length === 0) return;
-//   // Initialize maxima and minima from the first team.  The original
-//   // normalization formula used the first team's values for seeding.  We
-//   // compute the mass-to-load ratio (mdr) as bridgeWeight/load.  When
-//   // load is zero, we treat mdr as zero to avoid Infinity in calculations.
-//   let [bwMax, lpMax, mdrMax, bwMin, lpMin, mdrMin] = [
-//     teams[0].bridgeWeight,
-//     teams[0].load,
-//     teams[0].load !== 0 ? (teams[0].bridgeWeight / teams[0].load) : 0,
-//     teams[0].bridgeWeight,
-//     teams[0].load,
-//     teams[0].load !== 0 ? (teams[0].bridgeWeight / teams[0].load) : 0
-//   ];
-//   // Pass 1: find global maxima and minima for bridge weight, load and mdr
-//   for (let i = 0; i < teams.length; i++) {
-//     const t = teams[i];
-//     if (t.bridgeWeight > bwMax) bwMax = t.bridgeWeight;
-//     if (t.bridgeWeight < bwMin) bwMin = t.bridgeWeight;
-//     if (t.load > lpMax) lpMax = t.load;
-//     if (t.load < lpMin) lpMin = t.load;
-//     // Update mass-to-load ratio; treat zero load as zero (instead of Infinity)
-//     t.mdr = t.load !== 0 ? (t.bridgeWeight / t.load) : 0;
-//     if (t.mdr > mdrMax) mdrMax = t.mdr;
-//     if (t.mdr < mdrMin) mdrMin = t.mdr;
-//   }
-//   // Compute scores using the original BWR/LPR/MDRR normalization.  Each
-//   // component is calculated exactly as in the original contest code:
-//   //  bwr  = 1 + (49/(bwMax - bwMin)) * (bwMax - bridgeWeight)
-//   //  lpr  = 1 + (49/(lpMax - lpMin)) * (load - lpMin)
-//   //  mdrr = 1 + (49/(mdrMax - mdrMin)) * (mdrMax - mdr)
-//   // If any denominator is zero (all teams have the same value), we
-//   // treat the multiplier as zero so the component contributes only 1.
-//   for (let i = 0; i < teams.length; i++) {
-//     const t = teams[i];
-//     // BWR (Bridge Weight Ratio) – favors lighter bridges
-//     const bwDen = bwMax - bwMin;
-//     const bwr   = 1 + ((bwDen === 0 ? 0 : (49 / (bwDen)) * (bwMax - t.bridgeWeight)));
-//     // LPR (Load Ratio) – favors greater load
-//     const lpDen = lpMax - lpMin;
-//     const lpr   = 1 + ((lpDen === 0 ? 0 : (49 / (lpDen)) * (t.load - lpMin)));
-//     // MDRR (Mass-to-Load Ratio) – favors lower mdr
-//     const mdrDen = mdrMax - mdrMin;
-//     const mdrr  = 1 + ((mdrDen === 0 ? 0 : (49 / (mdrDen)) * (mdrMax - t.mdr)));
-//     const calculatedScore = (Number(t.bDEF) || 0) + bwr + lpr + mdrr;
-//     // Preserve score for broken bridges once they break
-//     if (t.breakPoint) {
-//       // When a bridge breaks, its score should remain fixed at the
-//       // value calculated at that moment.  We store this in
-//       // frozenScore on first calculation and reuse it on subsequent
-//       // updates.  If breakPoint toggles back to false, the score
-//       // will be recalculated normally.
-//       if (t.frozenScore === undefined) {
-//         t.frozenScore = calculatedScore;
-//       }
-//       t.score = t.frozenScore;
-//     } else {
-//       t.frozenScore = undefined;
-//       t.score = calculatedScore;
-//     }
-//   }
-// }
-
+// ======= Utility Functions =======
 function calculateScores() {
   // Exit early if no teams
   if (teams.length === 0) return;
@@ -174,7 +121,6 @@ function calculateScores() {
   });
 }
 
-
 /**
  * Renders a leaderboard table for a specific design.  The table is rebuilt from scratch
  * each time using the supplied sorted array of teams.
@@ -186,13 +132,12 @@ function renderTableForDesign(tableId, designTeams) {
   const table = document.getElementById(tableId);
   if (!table) return;
   // Build the header row again
-  // Build header without the "Table" column.  Split the Bridge Weight header into two lines.
   table.innerHTML = `
     <tr class="tableAttributes">
       <th>Rank</th>
       <th>Team</th>
       <th>Bridge<br>Weight</th>
-      <th>Load (lb)</th>
+      <th>Load</th>
       <th>BDEF</th>
       <th>Status</th>
       <th>Score</th>
@@ -206,7 +151,6 @@ function renderTableForDesign(tableId, designTeams) {
     const statusHtml = team.breakPoint
       ? '<span class="status-broken">Broken</span>'
       : '<span class="status-ok">OK</span>';
-    // Append the units 'g' to the bridge weight value for display
     row.innerHTML = `
       <td>${idx + 1}</td>
       <td>${team.name}</td>
@@ -266,19 +210,19 @@ function updateTables() {
 function addTeam() {
   const name         = (teamNameInput.value || '').trim();
   const bridgeWeight = parseFloat(bridgeWeightInput.value);
-  // Table numbers are no longer used, so ignore the tableNumberInput
+  // No table number is captured from the UI any more; we pass null so the Team
+  // object still has a tableNumber property internally.
   const tableNumber  = null;
   // Read design selection
   const designSelect = document.getElementById('designSelect');
   const design       = designSelect ? designSelect.value : 'truss';
-  // Validate inputs: require a name and a numeric bridge weight
+  // Validate inputs
   if (!name || isNaN(bridgeWeight)) return;
   const team = new Team(name, bridgeWeight, tableNumber, '', design);
   teams.push(team);
   // Clear inputs
   teamNameInput.value     = '';
   bridgeWeightInput.value = '';
-  // Table number input has been removed, so no need to clear it
   if (designSelect) designSelect.value = 'truss';
   // Update UI
   updateTables();
@@ -373,9 +317,7 @@ function markAsBroken(index) {
   updateTables();
 }
 
-/**
- * Adds the same load value to all non-broken teams.
- */
+// ======= Load All =======
 function loadAll() {
   if (!teams.length || isNaN(loadAllInput.valueAsNumber)) return;
   const add = loadAllInput.valueAsNumber;
@@ -394,15 +336,16 @@ function rebuildSelectBox() {
   if (!teamSelectBox) return;
   // Remove all existing options
   while (teamSelectBox.options.length) teamSelectBox.remove(0);
-  // Build new options sorted by table number
-  // Sort teams by name for the dropdown; table numbers are no longer used
+  // Build new options sorted alphabetically by team name within design.  The table number
+  // is no longer displayed since the column has been removed from the UI.
   const sorted = teams.slice().sort((a, b) => {
+    // Sort by design first (truss before drawbridge) then by team name
+    if (a.design !== b.design) return a.design.localeCompare(b.design);
     return a.name.localeCompare(b.name);
   });
   sorted.forEach((team) => {
     const option = document.createElement('option');
     option.value = String(teams.indexOf(team));
-    // Display design and team name; omit the table number
     option.textContent = `${team.design === 'truss' ? 'Truss' : 'Draw'}: ${team.name}`;
     teamSelectBox.append(option);
   });
@@ -447,6 +390,49 @@ addTeamButton.addEventListener('click', () => {
 });
 loadAllButton.addEventListener('click', loadAll);
 
+// Toggle collapse/expand of the team creation panel.  Clicking the arrow
+// button will toggle the 'collapsed' class on the movementforBottom container
+// and switch the arrow direction accordingly.  This prevents the bottom
+// panel from covering the tables when not needed.
+if (toggleCreationButton) {
+  toggleCreationButton.addEventListener('click', () => {
+    const panel = document.querySelector('.movementforBottom');
+    if (!panel) return;
+    panel.classList.toggle('collapsed');
+    // Update the arrow direction: down arrow when panel is visible, up when collapsed
+    if (panel.classList.contains('collapsed')) {
+      toggleCreationButton.textContent = '▲';
+      // Show the hint when collapsed
+      if (addTeamHint) {
+        addTeamHint.style.display = 'block';
+      }
+    } else {
+      toggleCreationButton.textContent = '▼';
+      // Hide the hint when expanded
+      if (addTeamHint) {
+        addTeamHint.style.display = 'none';
+      }
+    }
+  });
+}
+
+// When the hint is clicked, expand the Add Team panel and hide the hint
+if (addTeamHint) {
+  addTeamHint.addEventListener('click', () => {
+    const panel = document.querySelector('.movementforBottom');
+    if (!panel) return;
+    // Remove the collapsed class to show the panel
+    panel.classList.remove('collapsed');
+    // Change the toggle button arrow back to down
+    if (toggleCreationButton) toggleCreationButton.textContent = '▼';
+    // Hide the hint
+    addTeamHint.style.display = 'none';
+  });
+}
+
+// This is done for the testing phase, because I don't feel like inputting all of the info
+// one value at a time, I will make JS input it for me based on the script I put on the HTML side
+// For now, I will leave this commented out:
 // Initial render with optional preload of teams from embedded JSON data
 window.onload = function() {
   // If a script tag with id="initialData" exists, parse its JSON content and

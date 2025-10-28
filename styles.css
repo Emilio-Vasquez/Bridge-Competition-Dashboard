@@ -4,14 +4,9 @@
   --text:#222;
   /* Slightly more opaque card background to improve readability over the animated backdrop */
   --card-bg:rgba(255,255,255,0.92);
-}
-
-/* Import the Felix-Black font for the competition title.  The TTF file is provided in the project */
-@font-face {
-  font-family: "Felix-Black";
-  src: url("Fellix-Black.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
+  /* Define the custom Felix‑Black font for the competition title.  The font file
+     Fellix-Black.ttf is included in the project. */
+  --felix-font: 'Felix-Black';
 }
 
 /* Base resets */
@@ -22,6 +17,15 @@ body{
   color:var(--text);
   background:#fafafa;
   text-align:center;
+}
+
+/* Load the Felix-Black font for the competition title.  The @font-face rule makes
+   the font available under the name defined in the CSS variable --felix-font. */
+@font-face {
+  font-family: 'Felix-Black';
+  src: url('Fellix-Black.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
 /* Logo positioning */
@@ -64,13 +68,25 @@ body{
   color:var(--brand);
   margin:0.5rem 0;
 }
+/* Import the Felix‑Black font (custom typeface for the main title).  The font file
+   is provided in the project root as Fellix-Black.ttf.  We register a
+   @font-face with the name "Felix-Black" and apply it to the main title. */
+@font-face {
+  font-family: "Felix-Black";
+  src: url("Fellix-Black.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+/* Styling for the Bridge Building Competition title.  Use the custom font,
+   uppercase lettering and adjust sizing to remain responsive. */
 .buildingCompWelcome{
-  /* Use the custom Felix-Black font and transform text to uppercase */
-  font-family: "Felix-Black", "Myriad Pro", Myriad, "Liberation Sans", "Nimbus Sans L", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: var(--felix-font), sans-serif;
   text-transform: uppercase;
-  font-size: clamp(42px,8vw,100px);
-  color: var(--brand);
-  margin: 0;
+  /* Set the competition title to a fixed size of 100px to account for the larger glyphs in Felix‑Black.
+     We avoid using clamp here because the user specifically requested an exact 100px size. */
+  font-size:100px;
+  color:var(--brand);
+  margin:0;
 }
 
 /* Main layout: two columns - boards and winners */
@@ -131,16 +147,27 @@ body{
   background:rgba(0,0,0,0.02);
 }
 
-/* Adjust column widths after removing the Table column.  The Rank column (first) should be narrow,
-   while the Bridge Weight and Load columns (now third and fourth) should be flexible.  These
-   declarations set a fixed width for the Rank column and minimum widths for Weight and Load. */
+/* Column sizing adjustments: make the Rank column narrow so it doesn't consume
+   unnecessary horizontal space.  Allow the Bridge Weight and Load columns
+   to grow flexibly by providing a minimum width.  Column indices are based
+   on the current table structure: 1 = Rank, 4 = Bridge Weight, 5 = Load. */
 .teamTable th:nth-child(1),
-.teamTable td:nth-child(1) {
-  width: 4rem; /* narrow rank column */
+.teamTable td:nth-child(1){
+  width:3rem;
+  text-align:center;
 }
-.teamTable th:nth-child(3), .teamTable td:nth-child(3),
-.teamTable th:nth-child(4), .teamTable td:nth-child(4) {
-  min-width: 6rem; /* allow these columns to expand more than others */
+.teamTable th:nth-child(2),
+.teamTable td:nth-child(2),
+.teamTable th:nth-child(4),
+.teamTable td:nth-child(4),
+.teamTable th:nth-child(5),
+.teamTable td:nth-child(5),
+.teamTable th:nth-child(6),
+.teamTable td:nth-child(6),
+.teamTable th:nth-child(7),
+.teamTable td:nth-child(7){
+  min-width:6rem;
+  text-align:center;
 }
 .boldRow{
   font-weight:700;
@@ -149,6 +176,45 @@ body{
 .teamTable td:first-child{
   color:var(--brand);
   font-weight:700;
+}
+
+/* Narrow the Rank column and allow the Bridge Weight and Load columns to grow.  The
+   width definitions apply to both header and data cells. */
+.teamTable th:first-child,
+.teamTable td:first-child{
+  width:4rem;
+  text-align:center;
+}
+/* Bridge weight column (3rd visible column) */
+.teamTable th:nth-child(3),
+.teamTable td:nth-child(3){
+  min-width:90px;
+  text-align:center;
+}
+/* Load column (4th visible column) */
+.teamTable th:nth-child(4),
+.teamTable td:nth-child(4){
+  min-width:60px;
+  width:60px;
+  text-align:center;
+}
+.teamTable th:nth-child(5),
+.teamTable td:nth-child(5){
+  min-width:70px;
+  width:70px;
+  text-align:center;
+}
+.teamTable th:nth-child(6),
+.teamTable td:nth-child(6){
+  min-width:75px;
+  width:75px;
+  text-align:center;
+}
+.teamTable th:nth-child(7),
+.teamTable td:nth-child(7){
+  min-width:70px;
+  width:70px;
+  text-align:center;
 }
 
 /* Set a smaller font and use Futura/Century Gothic for table body cells (team names and other data) */
@@ -212,6 +278,70 @@ body{
   font-size:20px;
 }
 
+/*
+ * Winner card animations
+ *
+ * The original version of this project used animated effects on the top three
+ * winners.  Each card would scale up from half size and grow a subtle
+ * shadow as it appeared.  We removed those animations when refactoring the
+ * layout, but users requested they be reinstated.  The following
+ * keyframes and selectors reintroduce the animations in a way that works
+ * with the current markup.  Each nth-of-type winner card within a
+ * winners-group will play its own animation.  The from/to values were
+ * tuned to match the modern card style (we animate the transform and
+ * shadow rather than padding).
+ */
+
+/* Keyframe definitions for the three winner animations */
+@keyframes winnerOneAni {
+  /* Start small with no shadow */
+  from {
+    transform: scale(0.5);
+    box-shadow: none;
+  }
+  /* End at full size with a medium shadow */
+  to {
+    transform: scale(1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+}
+
+@keyframes winnerTwoAni {
+  from {
+    transform: scale(0.5);
+    box-shadow: none;
+  }
+  to {
+    transform: scale(1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+}
+
+@keyframes winnerThreeAni {
+  from {
+    transform: scale(0.5);
+    box-shadow: none;
+  }
+  to {
+    transform: scale(1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* Apply animations to the winner cards.  Each winners-group contains
+   exactly three winnerCard elements (for 1st, 2nd, 3rd place).  We
+   assign a unique animation to each card based on its order.  The
+   animations run once when the page loads and retain their final state. */
+.winners-group .winnerCard:nth-of-type(1) {
+  animation: winnerOneAni 0.7s ease-out forwards;
+}
+.winners-group .winnerCard:nth-of-type(2) {
+  animation: winnerTwoAni 0.8s ease-out forwards;
+}
+.winners-group .winnerCard:nth-of-type(3) {
+  animation: winnerThreeAni 0.9s ease-out forwards;
+}
+
 /* Control panels */
 #teamEdit{
   position:fixed;
@@ -254,6 +384,45 @@ body{
   align-items:flex-start;
   max-width:420px;
   gap:0.75rem;
+  /* Slow down the slide transition when the panel is collapsed/expanded to make the motion smoother. */
+  transition:all 0.5s ease;
+}
+
+/* When the movement panel is collapsed, hide the team creation form and reduce padding. */
+/* Animate the collapse/expand of the team creation card.  Instead of hiding it instantly
+   via display:none (which cannot be animated), we control its max-height and opacity.
+   When collapsed, the card's max-height shrinks to 0 and it fades out; when expanded,
+   it expands to reveal the inputs.  Overflow is hidden to prevent contents from
+   spilling out during the transition. */
+.movementforBottom #teamCreation{
+  max-height:600px; /* large enough to contain the entire form */
+  opacity:1;
+  overflow:hidden;
+  transition:max-height 0.4s ease, opacity 0.5s ease;
+}
+.movementforBottom.collapsed #teamCreation{
+  max-height:0;
+  opacity:0;
+}
+.movementforBottom.collapsed{
+  padding-bottom:0.25rem;
+}
+
+/* Style for the toggle button to collapse/expand the team creation card.  We position
+   it at the top of the movement panel and ensure it aligns nicely with other
+   controls. */
+.movementforBottom .toggleButton{
+  background-color:transparent;
+  color:var(--brand);
+  border:none;
+  font-size:20px;
+  cursor:pointer;
+  align-self:flex-end;
+  margin:0;
+  padding:0;
+}
+.movementforBottom .toggleButton:hover{
+  color:var(--brand-dark);
 }
 
 /* Team creation fields container */
@@ -297,6 +466,64 @@ body{
 .teamCreation .loadPanelRight button{
   padding-left:1rem;
   padding-right:1rem;
+}
+
+/*
+ * Collapsed Add Team hint
+ *
+ * When the Add Team panel is collapsed, a hint bar appears inside the
+ * white translucent card to invite the user to reopen the panel.  The
+ * hint consists of a label on the left and a circular arrow on the right.
+ * The arrow is drawn via CSS borders (no characters in HTML).  By
+ * default the hint is hidden; it becomes visible when the parent panel
+ * has the class 'collapsed'.
+ */
+
+/* Base style for the hint bar; hidden by default */
+.movementforBottom .collapsedHint {
+  display: none;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--card-bg);
+  border-radius: 8px;
+  padding: 0.4rem 0.8rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+}
+/* Show the hint bar when the panel is collapsed */
+.movementforBottom.collapsed .collapsedHint {
+  display: flex;
+}
+
+/* Style the hint text */
+.collapsedHint .hintText {
+  color: var(--brand);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* Arrow container: circular backdrop for the arrow */
+.collapsedHint .hintArrow {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Draw the arrow using a pseudo-element; oriented up to indicate expansion */
+.collapsedHint .hintArrow::before {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 8px solid var(--brand);
 }
 
 

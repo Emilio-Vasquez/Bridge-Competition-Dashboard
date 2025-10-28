@@ -6,7 +6,6 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bridge Building Competition Manager</title>
-  <!-- Use the versioned CSS and JS files corresponding to this HTML -->
   <link rel="stylesheet" href="styles.css" />
   <script src="main.js" defer></script>
 </head>
@@ -27,10 +26,11 @@
   <!-- Title section -->
   <section class="sectionOne">
     <div class="heading">
-      <!-- Updated title: remove "Welcome to the annual" and insert "ucnj" after 2025 (all lowercase) -->
+      <!-- Updated heading: remove "welcome to the annual" and append "ucnj" after the year.  The entire line is lower‑case as requested. -->
       <div class="welcome">2025 UCNJ Union College of Union County, NJ</div>
-      <!-- Competition name will be styled via CSS to use the Felix‑Black font and appear in uppercase -->
-      <div class="buildingCompWelcome">Bridge Building Competition</div>
+      <!-- The main title uses a custom font defined in CSS and is displayed in uppercase.  The font size
+           has been reduced from the original 120px to 100px due to the larger glyphs in the new typeface. -->
+      <div class="buildingCompWelcome">BRIDGE BUILDING COMPETITION</div>
     </div>
   </section>
 
@@ -60,11 +60,10 @@
         <table id="trussTable" class="teamTable">
           <tr class="tableAttributes">
             <th>Rank</th>
-            <!-- Removed the Table column entirely -->
             <th>Team</th>
-            <!-- Split Bridge Weight header into two lines for better readability -->
+            <!-- Display bridge weight header on two lines.  The unit will be appended to each row in JS -->
             <th>Bridge<br>Weight</th>
-            <th>Load (lb)</th>
+            <th>Load</th>
             <th>BDEF</th>
             <th>Status</th>
             <th>Score</th>
@@ -76,10 +75,10 @@
         <table id="drawTable" class="teamTable">
           <tr class="tableAttributes">
             <th>Rank</th>
-            <!-- Removed the Table column entirely -->
             <th>Team</th>
+            <!-- Display bridge weight header on two lines.  The unit will be appended to each row in JS -->
             <th>Bridge<br>Weight</th>
-            <th>Load (lb)</th>
+            <th>Load</th>
             <th>BDEF</th>
             <th>Status</th>
             <th>Score</th>
@@ -97,7 +96,6 @@
         <option value="" disabled selected>Select a team...</option>
       </select>
       <button onclick="markAsBroken(teamSelectBox.value)">Broken?</button>
-      <!-- Removed Edit Table button since table numbers are no longer used -->
       <button onclick="updateLoad(teamSelectBox.value)">Edit Load</button>
       <button onclick="updateBridgeWeight(teamSelectBox.value)">Edit BW</button>
       <button onclick="updateBDEF(teamSelectBox.value)">Edit BDEF</button>
@@ -107,7 +105,17 @@
 
   <!-- Team creation and load controls (bottom-right) -->
   <div class="movementforBottom">
-    <!-- Team creation card; includes the Load All controls at the top -->
+    <!-- Toggle button to collapse/expand the team creation panel.  The arrow character flips
+         depending on whether the panel is visible. -->
+    <button id="toggleCreation" class="toggleButton">▼</button>
+    <!-- Hint bar displayed when collapsed.  Contains text and a stylized arrow defined in CSS.  When
+         the panel is collapsed, this bar appears inside the white translucent card.  The arrow
+         is drawn via CSS rather than a character in the markup. -->
+    <div id="collapsedHint" class="collapsedHint" style="display: flex; justify-content: center;">
+      <span class="hintText">Add Load and Team Panel</span>
+    </div>
+    <!-- Team creation card; includes the Load All controls at the top.  When the movement
+         panel has the class 'collapsed', this section will be hidden via CSS. -->
     <div id="teamCreation" class="teamCreation">
       <!-- Load All controls appear first in the card -->
       <div class="loadPanelRight">
@@ -115,8 +123,7 @@
         <button id="loadAllButton">Load All</button>
       </div>
       <input type="text" id="teamNameInput" placeholder="Enter Team Name" />
-      <!-- Removed the Table Number input since we no longer track table assignments -->
-      <input type="number" id="bridgeWeightInput" placeholder="Enter Bridge Weight (g)" />
+      <input type="number" id="bridgeWeightInput" placeholder="Enter Bridge Weight" />
       <select id="designSelect">
         <option value="truss" selected>Truss</option>
         <option value="drawbridge">Drawbridge</option>
@@ -125,14 +132,30 @@
     </div>
   </div>
 
+  <!-- When the team creation panel is collapsed, show a bar indicating "Add Team".  This
+       bar lives inside the white translucent area and includes an arrow.  Clicking the bar
+       re-expands the panel. -->
+  <!-- Note: the arrow icon is styled via CSS using borders, so no arrow character is needed. -->
+
   <script id="initialData" type="application/json">
   [
-    { "name": "Amjed",  "tableNumber": 1, "bridgeWeight": 50, "design": "truss" },
-    { "name": "Jen",    "tableNumber": 2, "bridgeWeight": 90, "design": "truss" },
-    { "name": "Jef",    "tableNumber": 3, "bridgeWeight": 60, "design": "truss" },
-    { "name": "Susan",  "tableNumber": 1, "bridgeWeight": 66, "design": "drawbridge" },
-    { "name": "Mike",   "tableNumber": 2, "bridgeWeight": 55, "design": "drawbridge" },
-    { "name": "Amanda", "tableNumber": 3, "bridgeWeight": 95, "design": "drawbridge" }
+    { "name": "Team Tech 2-B", "bridgeWeight": 727.4, "design": "truss" },
+    { "name": "Team Tech", "bridgeWeight": 742.8, "design": "truss" },
+    { "name": "Team Tech 3-C", "bridgeWeight": 793.6, "design": "truss" },
+    { "name": "Cranford A", "bridgeWeight": 752.5, "design": "truss" },
+    { "name": "JP Stevens A", "bridgeWeight": 835, "design": "truss" },
+    { "name": "BELVIDERE BBB222", "bridgeWeight": 758, "design": "truss" },
+    { "name": "UCVTS", "bridgeWeight": 647.5, "design": "truss" },
+    { "name": "New Providence 7-G", "bridgeWeight": 644.9, "design": "truss" },
+    { "name": "Cranford D", "bridgeWeight": 614.9, "design": "truss" },
+    { "name": "New Providence 6-E", "bridgeWeight": 677, "design": "truss" },
+    { "name": "Cranford E", "bridgeWeight": 597.5, "design": "truss" },
+    { "name": "New Providence 2-B", "bridgeWeight": 658, "design": "truss" },
+    { "name": "JP Stevens B", "bridgeWeight": 754, "design": "truss" },
+    { "name": "UCVTS B", "bridgeWeight": 686, "design": "truss" },
+    { "name": "New Providence 4-D", "bridgeWeight": 738, "design": "truss" },
+    { "name": "New Providence 5-E", "bridgeWeight": 765, "design": "truss" },
+    { "name": "New Providence 6-F", "bridgeWeight": 640, "design": "truss" }
   ]
   </script>
 </body>
