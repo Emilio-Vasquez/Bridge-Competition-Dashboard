@@ -1,433 +1,337 @@
-#chartPanel {
-    width: 30%;
-    padding: 20px;
-    background-color: #f2f2f2;
-    border: 1px solid #ccc;
-    margin-top: 20px;
-    float: right;
-    overflow: hidden;
-  }
-  
-  #chart {
-    border-collapse: collapse;
-    width: 100%;
-  }
-  
-  #chart th, #chart td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: center;
-  }
-  
-  #chart tr:nth-child(even) {
-    background-color: #f2f2f2;
-  }
-  
-  #chart th {
-    background-color: #4CAF50;
-    color: white;
-    overflow: show;
-  }
-
-
-h1
-{
-  background: hidden;
-  align-items: center;
+:root{
+  --brand:#b03333;
+  --brand-dark:#600000;
+  --text:#222;
+  /* Slightly more opaque card background to improve readability over the animated backdrop */
+  --card-bg:rgba(255,255,255,0.92);
 }
 
-head{
-  align-items: center;
-}
-
-h3 
-{
-  font-size: large;
-}
-
-.imageUCC{
-  position: fixed; 
-  z-index: 2; 
-  top: 0%; 
-  left: -1%;
-  width: 250px;
-  height: 250px;
-}
-
+/* Base resets */
+*{box-sizing:border-box;}
+html,body{height:100%;margin:0;}
 body{
-  align-items: center;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  width: 80%;
-  margin: 0 auto;
-  
+  font-family: "Myriad Pro", Myriad, "Liberation Sans", "Nimbus Sans L", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color:var(--text);
+  background:#fafafa;
+  text-align:center;
 }
 
-.loadbuttonDiv{
-  
-  
+/* Logo positioning */
+.imageUCC{
+  position:fixed;
+  top:12px;
+  left:12px;
+  width:160px;
+  height:auto;
+  z-index:20;
 }
 
-.movementforBottom{
-  position: fixed;
-  bottom: 5px;
-  right: 1%;
-  display: grid;
-  justify-content: center;
-  grid-auto-flow: column;
-  gap:15px;
+/* Full-page background containing the Spline animation */
+.spline-bg{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  z-index:-1;
+  overflow:hidden;
+}
+.spline-bg iframe{
+  width:100%;
+  height:100%;
+  border:none;
+  display:block;
+  pointer-events:none;
 }
 
-.loadAll
-{
-  
-  
-  z-index: 2;
-  
-  display: grid;
-  justify-content: center;
-  grid-auto-flow: row;
-   
+/* Title section */
+.sectionOne .heading{
+  text-align:center;
+  padding-top:2rem;
+  z-index:2;
 }
-
-.teamCreation
-{
-  
-  
-  display: grid;
-  grid-auto-flow: row;
-  
-  z-index: 2;
-  
-}
-
-.teamEdit
-{
-  position: fixed;
-  z-index: 2;
-  bottom: 1%;
-  left: 1%;
-}
-
-.teamTableBody{
-  position: fixed;
-  z-index: 2;
-  display: grid;
-  justify-content: center;
-  grid-auto-flow: column;
-  gap:20px;
-  top: 15%
-  
-}
-
-/* this is for all the winners */
-
-.topThreeWinners
-{
-  
-  position: fixed;
-  left: 2%;
-  top: 25%;
-  display: grid;
-  justify-content: center;
-  grid-auto-flow: row;
-  gap:20px;
-}
-
-.pColorteam{
-  color: white;
-}
-.pColorteamCurrentTitle{
-  color: white;
-  font-size: 20px;
-}
-
-
-.winnerOne{
-  padding: 15px 15px;
-  background-color: rgb(176, 51, 51);
-  border-radius: 5%;
-  animation-name: winnerOneAni;
-  animation-duration: 7s;
-  animation-fill-mode: forwards;
-}
-
-.winnerTwo{
-  padding: 15px 15px;
-  background-color: rgb(176, 51, 51);
-  border-radius: 5%;
-  animation-name: winnerTwoAni;
-  animation-duration: 7s;
-  animation-fill-mode: forwards;
-}
-
-.winnerThree{
-  padding: 15px 15px;
-  background-color: rgb(176, 51, 51);
-  border-radius: 5%;
-  animation-name: winnerThreeAni;
-  animation-duration: 7s;
-  animation-fill-mode: forwards;
-  
-}
-
-@keyframes winnerOneAni {
-  from {scale: 0.5; box-shadow: 0; }
-  to {padding: 15px 15px; box-shadow: 10px 10px #66666683;  }
-}
-
-@keyframes winnerTwoAni {
-  from {scale: 0.5; box-shadow: 0; }
-  to {padding: 15px 15px; box-shadow: 10px 10px #66666683;  }
-}
-
-@keyframes winnerThreeAni {
-  from {scale: 0.5; box-shadow: 0; }
-  to {padding: 15px 15px; box-shadow: 10px 10px #66666683;  }
-}
-
-
-
-
-
-
-
-
-
-/* .announcement
-{
-  
-  background-repeat: no-repeat;
-  background-size: cover;
-  height:100vh;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  overflow: hidden;
-}  */
-
-.iframe-background {
-  position: fixed;
-  z-index: 0;
-  text-align: center;
-  align-items: center;
-}
-iframe {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: none;
-}
-.content {
-  position:relative;
-  align-items: center;
-  text-align: center;
-  top: -20px;
-  z-index: 2;
-  display:flex;
-  justify-content: center;
-  flex-direction: column;
-}
-
-.heading{
-  z-index:5;
-
-}
-
 .welcome{
-  font-family: "Myriad Pro", Myriad, "Liberation Sans", "Nimbus Sans L", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size:40px;
+  opacity:.5;
+  color:var(--brand);
+  margin:0.5rem 0;
+}
+.buildingCompWelcome{
+  font-size:clamp(42px,8vw,120px);
+  color:var(--brand);
+  margin:0;
 }
 
-.buildingCompWelcome {
-  font-family: "Myriad Pro", Myriad, "Liberation Sans", "Nimbus Sans L", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  position: relative;
-  top: -20px;
+/* Main layout: two columns - boards and winners */
+/* Main layout: winners on the left and boards on the right */
+.layout{
+  display:grid;
+  /* layout: winners on the left sized to its content (auto) and boards take remaining space */
+  grid-template-columns:auto 1fr;
+  gap:1.5rem;
+  padding:1rem 2rem;
+  align-items:flex-start;
+  max-width:100%;
 }
 
-.sectionOne{
-  
-  position: static;
-  display: grid;
-  grid-auto-flow: row;
+/* Boards container holds the two tables */
+.boards{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:2rem;
 }
 
-.wholeTableOutput
-{
-
-    position:relative;
-  top: -10px;
+/* Card styling for each board */
+.board{
+  background:var(--card-bg);
+  backdrop-filter:blur(10px);
+  border-radius:12px;
+  padding:1rem;
+  box-shadow:0 6px 24px rgba(0,0,0,.08);
+  max-height:60vh;
+  overflow-y:auto;
 }
-.tableAttributes{
-  justify-content: center;
-  gap: 30px;
-  padding : 20px;
-  
-  
-}
-
-
-.teamTable
-{
-  background-color: rgba(255, 255, 255, 0.375);
-  backdrop-filter: blur(10px);
-  border-radius: 10px;
-  justify-content:left;
-  position: static;
-  z-index: 2;
-  top: 10px;
-  flex-direction: column;
-  gap:10px;
-  font-size: 24px;
+.board h2{
+  margin:0 0 0.5rem;
 }
 
-.boldRow {
-    font-weight: bold;
-    font-size: 30px;
+/* Table styles */
+.teamTable{
+  width:100%;
+  border-collapse:collapse;
+  table-layout:fixed;
+  font-size:18px;
+  margin:0;
 }
-.teamAttributes{
-  justify-content: left;
+.teamTable tr:first-child{
+  position:sticky;
+  top:0;
+  background:rgba(255,255,255,0.95);
+  z-index:1;
 }
-
-.actualTable{
-  
-  justify-content: left;
-  border: #0066cc;
+.teamTable th,
+.teamTable td{
+  padding:0.4rem 0.5rem;
+  text-align:left;
+  border-bottom:1px solid rgba(0,0,0,0.1);
+  word-wrap:break-word;
 }
-
-th{
-  
-  font-size: 30px;
-  padding : 8px;
+.teamTable tr:nth-child(even) td{
+  background:rgba(0,0,0,0.02);
 }
-
-td {
-  padding: 0px 20px;
-    
+.boldRow{
+  font-weight:700;
+  font-size:24px;
 }
-
-
-input[type="text"] {
-  width: 200px; 
-  height: 20px; 
-  border: 1px solid #ccc; 
-  padding: 5px; 
-  margin: 10px 0; 
-  background-color: #f8f8f8; 
-  color: #333; 
-  font-family: Arial, sans-serif; 
+.teamTable td:first-child{
+  color:var(--brand);
+  font-weight:700;
 }
 
-input[type="text"] {
-  border-radius: 8px; 
-  box-shadow: 0px 0px 5px #aaa; 
+/* Set a smaller font and use Futura/Century Gothic for table body cells (team names and other data) */
+.teamTable td{
+  font-family:Futura, "Century Gothic", sans-serif;
+  font-size:14px;
+}
+.status-ok{
+  display:inline-block;
+  padding:0.2rem 0.6rem;
+  border-radius:999px;
+  background:#e8f7ea;
+  color:#246b2f;
+  font-size:0.8em;
+}
+.status-broken{
+  display:inline-block;
+  padding:0.2rem 0.6rem;
+  border-radius:999px;
+  background:#fdeaea;
+  color:#9e1c1c;
+  font-size:0.8em;
 }
 
-input[type="text"]:focus {
-  outline: none; 
-  border: 1px solid #0066cc; 
-  box-shadow: 0px 0px 5px #0066cc; 
+/* Winners panel on the left */
+.winners-panel{
+  display:flex;
+  flex-direction:column;
+  gap:1rem;
+  max-height:60vh;
+  overflow-y:auto;
+}
+.winners-group{
+  background:var(--card-bg);
+  backdrop-filter:blur(10px);
+  border-radius:12px;
+  padding:1rem;
+  box-shadow:0 6px 24px rgba(0,0,0,.08);
+}
+.winners-group.overall{
+  /* differentiate overall group if desired */
+}
+.winners-group h3{
+  margin:0 0 0.5rem;
+}
+.winnerCard{
+  background:var(--brand);
+  color:white;
+  border-radius:10px;
+  padding:0.5rem;
+  margin-bottom:0.5rem;
+  box-shadow:0 6px 12px rgba(0,0,0,0.15);
+}
+.winnerCard p{
+  margin:0;
+  font-size:14px;
+  opacity:0.8;
+}
+.winnerCard h3{
+  margin:0.3rem 0 0;
+  font-size:20px;
 }
 
-input[type="number"] {
-  width: 200px; 
-  height: 20px; 
-  border: 1px solid #ccc; 
-  padding: 5px; 
-  margin: 10px 0; 
-  background-color: #f8f8f8; 
-  color: #333; 
-  font-family: Arial, sans-serif; 
+/* Control panels */
+#teamEdit{
+  position:fixed;
+  bottom:12px;
+  left:12px;
+  background:var(--card-bg);
+  backdrop-filter:blur(10px);
+  border-radius:12px;
+  padding:1rem;
+  box-shadow:0 6px 12px rgba(0,0,0,0.2);
+  z-index:10;
+  /* stack the load panel and edit controls vertically */
+  display:flex;
+  flex-direction:column;
+  gap:0.5rem;
+  align-items:flex-start;
 }
 
-input[type="number"] {
-  border-radius: 8px; 
-  box-shadow: 0px 0px 5px #aaa; 
+/* Layout for the edit controls inside teamEdit */
+.editControls{
+  display:flex;
+  flex-wrap:wrap;
+  gap:0.3rem;
+  align-items:center;
+}
+/* Bottom-right control panel for team creation.  Organize inputs in a vertical stack
+   with two columns on wide screens.  The panel is narrower than before. */
+.movementforBottom{
+  position:fixed;
+  bottom:12px;
+  right:12px;
+  background:var(--card-bg);
+  backdrop-filter:blur(10px);
+  border-radius:12px;
+  padding:0.75rem;
+  box-shadow:0 6px 12px rgba(0,0,0,0.2);
+  z-index:10;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  max-width:420px;
+  gap:0.75rem;
 }
 
-input[type="number"]:focus {
-  outline: none; 
-  border: 1px solid #0066cc; 
-  box-shadow: 0px 0px 5px #0066cc; 
+/* Team creation fields container */
+.teamCreation{
+  display:grid;
+  /* Use two columns for inputs on wider screens; wrap on smaller screens */
+  grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));
+  gap:0.5rem;
+  align-items:center;
+}
+/* Make the Add Team button span the full width of the grid */
+.teamCreation button{
+  grid-column:1 / -1;
+}
+
+/* Ensure inputs and selects in the team creation panel fill their grid cell */
+.teamCreation input[type="text"],
+.teamCreation input[type="number"],
+.teamCreation select{
+  width:100%;
+}
+
+/* Limit the width of the team select dropdown in teamEdit */
+#teamEdit select{
+  width:200px;
+}
+
+/* Layout the load controls inside the teamCreation card */
+.teamCreation .loadPanelRight{
+  display:flex;
+  gap:0.5rem;
+  align-items:center;
+  /* span the full row of the grid so it appears on its own line */
+  grid-column:1 / -1;
+}
+
+.teamCreation .loadPanelRight input{
+  width:180px;
+}
+
+.teamCreation .loadPanelRight button{
+  padding-left:1rem;
+  padding-right:1rem;
 }
 
 
-button {
-  background-color: #af4c4c; 
-  border: none; 
-  color: white; 
-  padding: 8px 20px; 
-  text-align: center; 
-  text-decoration: none;
-  display: inline-block; 
-  font-size: 12px; 
-  margin: 4px 2px; 
-  cursor: pointer; 
-  border-radius: 10px; 
-  box-shadow: 0 5px #666;
+/* Form controls: inputs and selects inside team creation and team edit */
+input[type="text"],
+input[type="number"],
+select{
+  /* Base input/select styling.  Do not set a global width here; width will
+     be controlled contextually (teamCreation inputs will be full width,
+     others will use their intrinsic size or be overridden below). */
+  height:32px;
+  font-size:14px;
+  border:1px solid #ccc;
+  border-radius:8px;
+  padding:0.25rem 0.6rem;
+  background:#f8f8f8;
+  color:#333;
+  margin:4px 0;
+}
+input:focus,
+select:focus{
+  outline:none;
+  border-color:#0066cc;
+  box-shadow:0 0 0 2px rgba(0,102,204,.15);
+}
+button{
+  background-color:var(--brand);
+  color:white;
+  border:none;
+  padding:0.4rem 0.8rem;
+  font-size:14px;
+  border-radius:8px;
+  cursor:pointer;
+  box-shadow:0 4px 6px rgba(0,0,0,0.2);
+  transition:transform 0.1s, box-shadow 0.1s;
+  margin:4px 2px;
+}
+button:hover{
+  background-color:var(--brand-dark);
+  transform:translateY(1px);
+  box-shadow:0 3px 5px rgba(0,0,0,0.2);
+}
+button:active{
+  background:#6d6d6d;
+  transform:translateY(2px);
+  box-shadow:none;
+}
+button:focus{
+  outline:none;
+  border:1px solid #fff;
 }
 
-button:hover {
-  background-color: #600000; 
-  transform: translateY(4px); 
-  box-shadow: 0 0px #666;
-}
-
-
-button:active {
-  background-color: #6d6d6d;  
-}
-
-
-button:focus {
-  outline: none; 
-  border: 1px solid #fff; 
-}
-
-/* DROPDOWN CSS */
-.dropbtn {
-  position: absolute;
-  bottom: 10%;
-  right: 10%;
-  background-color: #ffffff;
-  color: rgb(71, 71, 71);
-  padding: 5px;
-  font-size: 13px;
-  border: none;
-  cursor: pointer;
-}
-
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  bottom: 8%;
-  right: 8%;
-  background-color: #f9f9f9;
-  min-width: 80px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-
-}
-
-.dropdown-content a {
-  color: black;
-  padding: 12px 13px;
-  text-decoration: none;
-  display: block;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-.dropdown:hover .dropbtn {
-  background-color: #484848;
+/* Responsive adjustments */
+@media (max-width:1100px){
+  .layout{grid-template-columns:1fr;}
+  .boards{grid-template-columns:1fr;}
+  .board{max-height:50vh;}
+  .winners-panel{flex-direction:row;flex-wrap:wrap;}
+  .winnerCard h3{font-size:18px;}
+  .buildingCompWelcome{font-size:clamp(36px,9vw,72px);}  
 }

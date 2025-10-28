@@ -1,143 +1,134 @@
-<!DOCTYPE html>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<html style ="text-align:center;">
-  <img src="ucclogo.png", alt="Description of the image", class="imageUCC">
 
-  <div style ="text-align: center;">
-    <head>
-      <title>Bridge Competition Manager</title>
-      <link rel="stylesheet" href="styles.css">
-      <script src="main.js" defer></script>
-    </head>
-<!-- chart we do not need but is here for posterity:   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
-  </div>
-</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bridge Building Competition Manager</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="main.js" defer></script>
+</head>
 <body>
-  <iframe src='https://my.spline.design/untitled-d3f33745fe35970fb781297a5c75919f/' frameborder='0' width='100%' height='100%'>
-    <!--placeholder-->
-  </iframe>
-  
+  <!-- Background animation fills the whole page -->
+  <div class="spline-bg">
+    <!-- The Spline embed contains a 3D bridge with cars.  It runs in the background behind all content. -->
+    <iframe
+      src="https://my.spline.design/untitled-d3f33745fe35970fb781297a5c75919f/"
+      frameborder="0"
+      title="Bridge animation"
+    ></iframe>
+  </div>
+
+  <!-- University logo -->
+  <img src="ucclogo.png" alt="Union College of Union County, NJ logo" class="imageUCC" />
+
+  <!-- Title section -->
   <section class="sectionOne">
-    <div class = "heading">
-      <div class="welcome", style = "font-size:40px; opacity: 50%; color:rgb(176, 51, 51);">
-        WELCOME TO THE ANNUAL 2023 UNION COLLEGE OF UNION COUNTY, NJ
-      </div>
-      <div class="buildingCompWelcome", style="font-size:120px; color: rgb(176, 51, 51);">
-        Bridge Building Competition
-      </div>
-    </div>
-  
-    <div class="content">
-      <table id="teamTable", class="teamTable">
-        <tr class = "tableAttributes">
-          <th>Rank</th>
-          <th>Table</th>
-          <th>Team</th>
-          <th>Bridge Weight</th>
-          <th>Load</th>
-          <th>BDEF</th>
-          <th>Broken?</th>
-          <th>Score</th>
-        </tr>
-      </table>
+    <div class="heading">
+      <div class="welcome">WELCOME TO THE ANNUAL 2025 UNION COLLEGE OF UNION COUNTY, NJ</div>
+      <div class="buildingCompWelcome">Bridge Building Competition</div>
     </div>
   </section>
 
-    
-    
-    
-
-  
-  
-  
-
- 
-  
-  
-  <div class="topThreeWinners">
-    <div id="winnerOne", class="winnerOne">
-      <p class="pColorteam", style = "font-size:30px;">
-        Current 1st Place
-      </p>
-      <h1 id="teamWinnerName1", class="pColorteam">
-        ?
-        <!--taem name in first place will print here-->
-      </h1>
-    </div>
-    
-    <div id="winnerTwo", class="winnerTwo">
-      <p class="pColorteam", style = "font-size:30px;">
-        Current 2nd Place
-      </p>
-      <h1 id="teamWinnerName2", class="pColorteam">
-        ?
-        <!--taem name in second place will print here-->
-      </h1>
-    </div>
-    
-    <div id="winnerThree", class="winnerThree">
-      <p class="pColorteam", style = "font-size:30px;">
-        Current 3rd Place
-      </p>
-      <h1 id="teamWinnerName3", class="pColorteam">
-        ?
-        <!--taem name in third place will print here-->
-      </h1>
+  <!-- Main layout: winners on the left and both leaderboards on the right -->
+  <div class="layout">
+    <!-- Winners panel for both designs -->
+    <aside class="winners-panel">
+      <!-- Truss winners -->
+      <div class="winners-group">
+        <h3>Truss Leaders</h3>
+        <div class="winnerCard"><p>1st</p><h3 id="teamWinnerName1_truss">?</h3></div>
+        <div class="winnerCard"><p>2nd</p><h3 id="teamWinnerName2_truss">?</h3></div>
+        <div class="winnerCard"><p>3rd</p><h3 id="teamWinnerName3_truss">?</h3></div>
+      </div>
+      <!-- Drawbridge winners -->
+      <div class="winners-group">
+        <h3>Drawbridge Leaders</h3>
+        <div class="winnerCard"><p>1st</p><h3 id="teamWinnerName1_draw">?</h3></div>
+        <div class="winnerCard"><p>2nd</p><h3 id="teamWinnerName2_draw">?</h3></div>
+        <div class="winnerCard"><p>3rd</p><h3 id="teamWinnerName3_draw">?</h3></div>
+      </div>
+    </aside>
+    <!-- Boards for Truss and Drawbridge -->
+    <div class="boards">
+      <div class="board">
+        <h2>Truss</h2>
+        <table id="trussTable" class="teamTable">
+          <tr class="tableAttributes">
+            <th>Rank</th>
+            <th>Table</th>
+            <th>Team</th>
+            <th>Bridge W (g)</th>
+            <th>Load (lb)</th>
+            <th>BDEF</th>
+            <th>Status</th>
+            <th>Score</th>
+          </tr>
+        </table>
+      </div>
+      <div class="board">
+        <h2>Drawbridge</h2>
+        <table id="drawTable" class="teamTable">
+          <tr class="tableAttributes">
+            <th>Rank</th>
+            <th>Table</th>
+            <th>Team</th>
+            <th>Bridge W (g)</th>
+            <th>Load (lb)</th>
+            <th>BDEF</th>
+            <th>Status</th>
+            <th>Score</th>
+          </tr>
+        </table>
+      </div>
     </div>
   </div>
 
-
-  
-  <!-- <div id="chartPanel">
-    <h2>Team Chart</h2>
-    <div id="chart">
-      Chart will be dynamically updated here
+  <!-- Team editing controls (bottom-left) -->
+  <div id="teamEdit">
+    <!-- Editing controls grouped separately for a cleaner layout -->
+    <div class="editControls">
+      <select id="teamSelect">
+        <option value="" disabled selected>Select a team...</option>
+      </select>
+      <button onclick="markAsBroken(teamSelectBox.value)">Broken?</button>
+      <button onclick="updateTableNumber(teamSelectBox.value)">Edit Table</button>
+      <button onclick="updateLoad(teamSelectBox.value)">Edit Load</button>
+      <button onclick="updateBridgeWeight(teamSelectBox.value)">Edit BW</button>
+      <button onclick="updateBDEF(teamSelectBox.value)">Edit BDEF</button>
+      <button onclick="removeTeam(teamSelectBox.value)">Remove</button>
     </div>
-  </div> -->
-  
-  <!-- Add a button and a div for displaying team info -->
-  
-  
-  <!-- <canvas id="teamChart" width="400" height="200"></canvas> Add a canvas element for the chart -->
-  <!-- <canvas id="teamChart" width="400" height="200"></canvas> -->
-  
-  
-  
-  
-
-  <div id="teamEdit",style = "text-align: center;", class="teamEdit">
-    <select id = "teamSelect">
-        <option value="1">Number 1</option>
-        <option value="2">Number 2</option>
-        <option value="3">Number 3</option>
-    </select>
-    <button onclick="markAsBroken(teamSelectBox.value)">Broken?</button>
-    <button onclick="updateTableNumber(teamSelectBox.value)">Edit Table</button>
-    <button onclick="updateLoad(teamSelectBox.value)">Edit Load</button>
-    <button onclick="updateBridgeWeight(teamSelectBox.value)">Edit BW</button>
-    <button onclick="updateBDEF(teamSelectBox.value)">Edit BDEF</button>
-    <button onclick="removeTeam(teamSelectBox.value)">Remove</button>
   </div>
 
+  <!-- Team creation and load controls (bottom-right) -->
   <div class="movementforBottom">
-
-    <div id="teamCreation", style="text-align: center;", class="teamCreation">
-        <div loadAll, class="loadAll">
-            <input type="number" id="loadAllInput" placeholder = "Add Load to All">
-            <div class="loadbuttonDiv">
-                <button id = "loadAllButton">Load All</button>
-            </div>
-        </div>
-      <input type="text" id="teamNameInput" placeholder="Enter Team Name">
-      <input type="number" id="tableNumberInput" placeholder="Table Number">
-      <input type="number" id="bridgeWeightInput" placeholder="Enter Bridge Weight">
-      <button id="addTeamButton", class="addTeamButton">Add Team</button>
+    <!-- Team creation card; includes the Load All controls at the top -->
+    <div id="teamCreation" class="teamCreation">
+      <!-- Load All controls appear first in the card -->
+      <div class="loadPanelRight">
+        <input type="number" id="loadAllInput" placeholder="Add Load to All (lb)" />
+        <button id="loadAllButton">Load All</button>
+      </div>
+      <input type="text" id="teamNameInput" placeholder="Enter Team Name" />
+      <input type="number" id="tableNumberInput" placeholder="Table Number" />
+      <input type="number" id="bridgeWeightInput" placeholder="Enter Bridge Weight (g)" />
+      <select id="designSelect">
+        <option value="truss" selected>Truss</option>
+        <option value="drawbridge">Drawbridge</option>
+      </select>
+      <button id="addTeamButton" class="addTeamButton">Add Team</button>
     </div>
-
-    <!--PUT BOTTOM RIGHT IMAGE HERE-->
   </div>
-</body>
 
-<div class="info">
-  
-</div>
+  <script id="initialData" type="application/json">
+  [
+    { "name": "Amjed",  "tableNumber": 1, "bridgeWeight": 50, "design": "truss" },
+    { "name": "Jen",    "tableNumber": 2, "bridgeWeight": 90, "design": "truss" },
+    { "name": "Jef",    "tableNumber": 3, "bridgeWeight": 60, "design": "truss" },
+    { "name": "Susan",  "tableNumber": 1, "bridgeWeight": 66, "design": "drawbridge" },
+    { "name": "Mike",   "tableNumber": 2, "bridgeWeight": 55, "design": "drawbridge" },
+    { "name": "Amanda", "tableNumber": 3, "bridgeWeight": 95, "design": "drawbridge" }
+  ]
+  </script>
+</body>
+</html>
