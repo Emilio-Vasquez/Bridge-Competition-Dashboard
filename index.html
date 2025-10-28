@@ -1,10 +1,12 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bridge Building Competition Manager</title>
+  <!-- Use the versioned CSS and JS files corresponding to this HTML -->
   <link rel="stylesheet" href="styles.css" />
   <script src="main.js" defer></script>
 </head>
@@ -25,7 +27,9 @@
   <!-- Title section -->
   <section class="sectionOne">
     <div class="heading">
-      <div class="welcome">WELCOME TO THE ANNUAL 2025 UNION COLLEGE OF UNION COUNTY, NJ</div>
+      <!-- Updated title: remove "Welcome to the annual" and insert "ucnj" after 2025 (all lowercase) -->
+      <div class="welcome">2025 UCNJ Union College of Union County, NJ</div>
+      <!-- Competition name will be styled via CSS to use the Felix‑Black font and appear in uppercase -->
       <div class="buildingCompWelcome">Bridge Building Competition</div>
     </div>
   </section>
@@ -56,9 +60,10 @@
         <table id="trussTable" class="teamTable">
           <tr class="tableAttributes">
             <th>Rank</th>
-            <th>Table</th>
+            <!-- Removed the Table column entirely -->
             <th>Team</th>
-            <th>Bridge W (g)</th>
+            <!-- Split Bridge Weight header into two lines for better readability -->
+            <th>Bridge<br>Weight</th>
             <th>Load (lb)</th>
             <th>BDEF</th>
             <th>Status</th>
@@ -71,9 +76,9 @@
         <table id="drawTable" class="teamTable">
           <tr class="tableAttributes">
             <th>Rank</th>
-            <th>Table</th>
+            <!-- Removed the Table column entirely -->
             <th>Team</th>
-            <th>Bridge W (g)</th>
+            <th>Bridge<br>Weight</th>
             <th>Load (lb)</th>
             <th>BDEF</th>
             <th>Status</th>
@@ -92,7 +97,7 @@
         <option value="" disabled selected>Select a team...</option>
       </select>
       <button onclick="markAsBroken(teamSelectBox.value)">Broken?</button>
-      <button onclick="updateTableNumber(teamSelectBox.value)">Edit Table</button>
+      <!-- Removed Edit Table button since table numbers are no longer used -->
       <button onclick="updateLoad(teamSelectBox.value)">Edit Load</button>
       <button onclick="updateBridgeWeight(teamSelectBox.value)">Edit BW</button>
       <button onclick="updateBDEF(teamSelectBox.value)">Edit BDEF</button>
@@ -110,7 +115,7 @@
         <button id="loadAllButton">Load All</button>
       </div>
       <input type="text" id="teamNameInput" placeholder="Enter Team Name" />
-      <input type="number" id="tableNumberInput" placeholder="Table Number" />
+      <!-- Removed the Table Number input since we no longer track table assignments -->
       <input type="number" id="bridgeWeightInput" placeholder="Enter Bridge Weight (g)" />
       <select id="designSelect">
         <option value="truss" selected>Truss</option>

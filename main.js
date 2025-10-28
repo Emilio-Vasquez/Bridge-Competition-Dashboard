@@ -1,6 +1,7 @@
 // DOM element references
 const teamNameInput     = document.getElementById('teamNameInput');
 const bridgeWeightInput = document.getElementById('bridgeWeightInput');
+// Note: table numbers are no longer used.  The corresponding input has been removed.
 const tableNumberInput  = document.getElementById('tableNumberInput');
 const addTeamButton     = document.getElementById('addTeamButton');
 
@@ -27,11 +28,13 @@ let nextId = 1;
  * a team name, bridge weight (grams), table number, school (optional) and design (truss/drawbridge).
  */
 class Team {
-  constructor(name, bridgeWeight, tableNumber, school = '', design = 'truss') {
+  constructor(name, bridgeWeight, tableNumber = null, school = '', design = 'truss') {
     this.id          = nextId++;
     this.name        = name;
     this.school      = school;
     this.design      = design;
+    // Table numbers are no longer used for sorting or display.  Keep a
+    // property for potential internal use, but default to null.
     this.tableNumber = Number(tableNumber) || null;
     this.bridgeWeight= Number(bridgeWeight) || 0; // grams
     this.load        = 0;              // pounds of load carried
@@ -183,12 +186,12 @@ function renderTableForDesign(tableId, designTeams) {
   const table = document.getElementById(tableId);
   if (!table) return;
   // Build the header row again
+  // Build header without the "Table" column.  Split the Bridge Weight header into two lines.
   table.innerHTML = `
     <tr class="tableAttributes">
       <th>Rank</th>
-      <th>Table</th>
       <th>Team</th>
-      <th>Bridge W (g)</th>
+      <th>Bridge<br>Weight</th>
       <th>Load (lb)</th>
       <th>BDEF</th>
       <th>Status</th>
@@ -203,11 +206,11 @@ function renderTableForDesign(tableId, designTeams) {
     const statusHtml = team.breakPoint
       ? '<span class="status-broken">Broken</span>'
       : '<span class="status-ok">OK</span>';
+    // Append the units 'g' to the bridge weight value for display
     row.innerHTML = `
       <td>${idx + 1}</td>
-      <td>${team.tableNumber ?? ''}</td>
       <td>${team.name}</td>
-      <td>${team.bridgeWeight}</td>
+      <td>${team.bridgeWeight} g</td>
       <td>${team.load}</td>
       <td>${team.bDEF}</td>
       <td>${statusHtml}</td>
@@ -263,18 +266,19 @@ function updateTables() {
 function addTeam() {
   const name         = (teamNameInput.value || '').trim();
   const bridgeWeight = parseFloat(bridgeWeightInput.value);
-  const tableNumber  = parseFloat(tableNumberInput.value);
+  // Table numbers are no longer used, so ignore the tableNumberInput
+  const tableNumber  = null;
   // Read design selection
   const designSelect = document.getElementById('designSelect');
   const design       = designSelect ? designSelect.value : 'truss';
-  // Validate inputs
-  if (!name || isNaN(bridgeWeight) || isNaN(tableNumber)) return;
+  // Validate inputs: require a name and a numeric bridge weight
+  if (!name || isNaN(bridgeWeight)) return;
   const team = new Team(name, bridgeWeight, tableNumber, '', design);
   teams.push(team);
   // Clear inputs
   teamNameInput.value     = '';
   bridgeWeightInput.value = '';
-  tableNumberInput.value  = '';
+  // Table number input has been removed, so no need to clear it
   if (designSelect) designSelect.value = 'truss';
   // Update UI
   updateTables();
@@ -391,15 +395,15 @@ function rebuildSelectBox() {
   // Remove all existing options
   while (teamSelectBox.options.length) teamSelectBox.remove(0);
   // Build new options sorted by table number
-  const sortedByTable = teams.slice().sort((a, b) => {
-    const aNum = a.tableNumber ?? 0;
-    const bNum = b.tableNumber ?? 0;
-    return aNum - bNum;
+  // Sort teams by name for the dropdown; table numbers are no longer used
+  const sorted = teams.slice().sort((a, b) => {
+    return a.name.localeCompare(b.name);
   });
-  sortedByTable.forEach((team, idx) => {
+  sorted.forEach((team) => {
     const option = document.createElement('option');
     option.value = String(teams.indexOf(team));
-    option.textContent = `${team.design === 'truss' ? 'Truss' : 'Draw'} — Table ${team.tableNumber ?? ''}: ${team.name}`;
+    // Display design and team name; omit the table number
+    option.textContent = `${team.design === 'truss' ? 'Truss' : 'Draw'}: ${team.name}`;
     teamSelectBox.append(option);
   });
 }

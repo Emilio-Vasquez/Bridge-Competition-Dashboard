@@ -6,6 +6,14 @@
   --card-bg:rgba(255,255,255,0.92);
 }
 
+/* Import the Felix-Black font for the competition title.  The TTF file is provided in the project */
+@font-face {
+  font-family: "Felix-Black";
+  src: url("Fellix-Black.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 /* Base resets */
 *{box-sizing:border-box;}
 html,body{height:100%;margin:0;}
@@ -57,9 +65,12 @@ body{
   margin:0.5rem 0;
 }
 .buildingCompWelcome{
-  font-size:clamp(42px,8vw,120px);
-  color:var(--brand);
-  margin:0;
+  /* Use the custom Felix-Black font and transform text to uppercase */
+  font-family: "Felix-Black", "Myriad Pro", Myriad, "Liberation Sans", "Nimbus Sans L", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-transform: uppercase;
+  font-size: clamp(42px,8vw,100px);
+  color: var(--brand);
+  margin: 0;
 }
 
 /* Main layout: two columns - boards and winners */
@@ -118,6 +129,18 @@ body{
 }
 .teamTable tr:nth-child(even) td{
   background:rgba(0,0,0,0.02);
+}
+
+/* Adjust column widths after removing the Table column.  The Rank column (first) should be narrow,
+   while the Bridge Weight and Load columns (now third and fourth) should be flexible.  These
+   declarations set a fixed width for the Rank column and minimum widths for Weight and Load. */
+.teamTable th:nth-child(1),
+.teamTable td:nth-child(1) {
+  width: 4rem; /* narrow rank column */
+}
+.teamTable th:nth-child(3), .teamTable td:nth-child(3),
+.teamTable th:nth-child(4), .teamTable td:nth-child(4) {
+  min-width: 6rem; /* allow these columns to expand more than others */
 }
 .boldRow{
   font-weight:700;
