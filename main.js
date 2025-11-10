@@ -382,6 +382,9 @@ function updateBoldRows(tableId) {
   for (let i = 1; i < limit; i++) {
     rows[i].classList.add('boldRow');
   }
+  //add silver and bronze to second and third row
+    rows[2].classList.add('boldRow2');
+    rows[3].classList.add('boldRow3');
 }
 
 // Event listeners
