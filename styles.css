@@ -117,6 +117,12 @@ body{
   box-shadow:0 6px 24px rgba(0,0,0,.08);
   max-height:60vh;
   overflow-y:auto;
+  /* hide native scrollbar but keep scrolling behaviour */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.board::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
 .board h2{
   margin:0 0 0.5rem;
@@ -172,17 +178,17 @@ body{
 .boldRow{
   font-weight:700;
   font-size:24px;
-  color: #c9980b
+  background-color: gold
 }
 .boldRow2{
   font-weight:700;
   font-size:24px;
-  color: #757575
+  background-color: silver
 }
 .boldRow3{
   font-weight:700;
   font-size:24px;
-  color: #b87333
+  background-color: #b87333
 }
 .teamTable td:first-child{
   color:var(--brand);

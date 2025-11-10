@@ -466,4 +466,91 @@ window.onload = function() {
     }
   }
   updateTables();
+  
+  // Setup autoscroll for both tables after they're rendered
+  setupAutoScroll('trussTable');
+  setupAutoScroll('drawTable');
 };
+
+function setupAutoScroll(tableId) {
+  // Find the board container that holds the table
+  const tableElement = document.getElementById(tableId);
+  if (!tableElement) return;
+  
+  const container = tableElement.closest('.board');
+  if (!container) return;
+  
+  let scrollSpeed = 1; // pixels per step
+  let delay = 30; // milliseconds between steps
+  let scrollInterval = null;
+  let scrollDirection = 1; // 1 for down, -1 for up
+  let isWaiting = false;
+  let isHovering = false;
+  let isHidden = false;
+
+  function startInterval() {
+    // ensure only one interval exists
+    if (scrollInterval) clearInterval(scrollInterval);
+    scrollInterval = setInterval(scrollStep, delay);
+  }
+
+  function stopInterval() {
+    if (scrollInterval) {
+      clearInterval(scrollInterval);
+      scrollInterval = null;
+    }
+  }
+
+  function scrollStep() {
+    // Scroll in current direction
+    container.scrollTop += scrollSpeed * scrollDirection;
+
+    // Check if we've reached top or bottom (allowing for small float imprecision)
+    const atBottom = container.scrollTop >= container.scrollHeight - container.clientHeight - 1;
+    const atTop = container.scrollTop <= 1;
+
+    if (atBottom && scrollDirection === 1) {
+      // Reached bottom, pause then reverse
+      stopInterval();
+      scrollDirection = -1;
+      isWaiting = true;
+      setTimeout(() => {
+        isWaiting = false;
+        if (!isHovering && !isHidden) startInterval();
+      }, 5000);
+    } else if (atTop && scrollDirection === -1) {
+      // Reached top, pause then reverse
+      stopInterval();
+      scrollDirection = 1;
+      isWaiting = true;
+      setTimeout(() => {
+        isWaiting = false;
+        if (!isHovering && !isHidden) startInterval();
+      }, 10000);
+    }
+  }
+
+  // Start scrolling immediately
+  startInterval();
+
+  // Optional: Pause on hover
+  container.addEventListener('mouseenter', () => {
+    isHovering = true;
+    stopInterval();
+  });
+  container.addEventListener('mouseleave', () => {
+    isHovering = false;
+    if (!isWaiting && !isHidden) startInterval();
+  });
+
+  // Pause when page is hidden (tab switched) to avoid timers stacking; resume when visible
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      isHidden = true;
+      stopInterval();
+    } else {
+      isHidden = false;
+      if (!isWaiting && !isHovering) startInterval();
+    }
+  });
+}
