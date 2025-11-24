@@ -169,10 +169,13 @@ body{
   min-width:6rem;
   text-align:center;
 }
-.boldRow{
+.teamTable .boldRow td{
   font-weight:700;
   font-size:24px;
+  padding-top: 50px;
+  padding-bottom: 50px;
 }
+
 .teamTable td:first-child{
   color:var(--brand);
   font-weight:700;
