@@ -171,9 +171,9 @@ body{
 }
 .teamTable .boldRow td{
   font-weight:700;
-  font-size:24px;
-  padding-top: 50px;
-  padding-bottom: 50px;
+  font-size:17px;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 
 .teamTable td:first-child{
