@@ -194,6 +194,12 @@ body{
   color:var(--brand);
   font-weight:700;
 }
+.teamTable .boldRow td{
+  font-weight:700;
+  font-size:18px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
 
 /* Narrow the Rank column and allow the Bridge Weight and Load columns to grow.  The
    width definitions apply to both header and data cells. */
