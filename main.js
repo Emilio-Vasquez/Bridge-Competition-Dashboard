@@ -372,16 +372,22 @@ function truncateTeamName(teamName, maxLength) {
 function updateBoldRows(tableId) {
   const table = document.getElementById(tableId);
   if (!table) return;
+
   const rows = table.rows;
-  // Remove existing boldRow classes
+  // no data rows, nothing to highlight
+  if (rows.length <= 1) return;
+
+  // clear previous classes
   for (let i = 0; i < rows.length; i++) {
-    rows[i].classList.remove('boldRow');
+    rows[i].classList.remove('boldRow', 'boldRow2', 'boldRow3');
   }
-  // Add boldRow to the first 3 data rows (skip header)
-  const limit = Math.min(4, rows.length); // header + top 3
-  for (let i = 1; i < limit; i++) {
-    rows[i].classList.add('boldRow');
-  }
+
+  const dataRowCount = rows.length - 1;      // exclude header
+  const topCount = Math.min(3, dataRowCount);
+
+  if (topCount >= 1) rows[1].classList.add('boldRow');   // 1st place
+  if (topCount >= 2) rows[2].classList.add('boldRow2');  // 2nd place
+  if (topCount >= 3) rows[3].classList.add('boldRow3');  // 3rd place
 }
 
 // Event listeners
@@ -463,4 +469,91 @@ window.onload = function() {
     }
   }
   updateTables();
+  
+  // Setup autoscroll for both tables after they're rendered
+  setupAutoScroll('trussTable');
+  setupAutoScroll('drawTable');
 };
+
+function setupAutoScroll(tableId) {
+  // Find the board container that holds the table
+  const tableElement = document.getElementById(tableId);
+  if (!tableElement) return;
+  
+  const container = tableElement.closest('.board');
+  if (!container) return;
+  
+  let scrollSpeed = 1; // pixels per step
+  let delay = 30; // milliseconds between steps
+  let scrollInterval = null;
+  let scrollDirection = 1; // 1 for down, -1 for up
+  let isWaiting = false;
+  let isHovering = false;
+  let isHidden = false;
+
+  function startInterval() {
+    // ensure only one interval exists
+    if (scrollInterval) clearInterval(scrollInterval);
+    scrollInterval = setInterval(scrollStep, delay);
+  }
+
+  function stopInterval() {
+    if (scrollInterval) {
+      clearInterval(scrollInterval);
+      scrollInterval = null;
+    }
+  }
+
+  function scrollStep() {
+    // Scroll in current direction
+    container.scrollTop += scrollSpeed * scrollDirection;
+
+    // Check if we've reached top or bottom (allowing for small float imprecision)
+    const atBottom = container.scrollTop >= container.scrollHeight - container.clientHeight - 1;
+    const atTop = container.scrollTop <= 1;
+
+    if (atBottom && scrollDirection === 1) {
+      // Reached bottom, pause then reverse
+      stopInterval();
+      scrollDirection = -1;
+      isWaiting = true;
+      setTimeout(() => {
+        isWaiting = false;
+        if (!isHovering && !isHidden) startInterval();
+      }, 5000);
+    } else if (atTop && scrollDirection === -1) {
+      // Reached top, pause then reverse
+      stopInterval();
+      scrollDirection = 1;
+      isWaiting = true;
+      setTimeout(() => {
+        isWaiting = false;
+        if (!isHovering && !isHidden) startInterval();
+      }, 10000);
+    }
+  }
+
+  // Start scrolling immediately
+  startInterval();
+
+  // Optional: Pause on hover
+  container.addEventListener('mouseenter', () => {
+    isHovering = true;
+    stopInterval();
+  });
+  container.addEventListener('mouseleave', () => {
+    isHovering = false;
+    if (!isWaiting && !isHidden) startInterval();
+  });
+
+  // Pause when page is hidden (tab switched) to avoid timers stacking; resume when visible
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      isHidden = true;
+      stopInterval();
+    } else {
+      isHidden = false;
+      if (!isWaiting && !isHovering) startInterval();
+    }
+  });
+}

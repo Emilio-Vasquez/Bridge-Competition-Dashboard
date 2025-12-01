@@ -117,24 +117,38 @@ body{
   box-shadow:0 6px 24px rgba(0,0,0,.08);
   max-height:60vh;
   overflow-y:auto;
+  /* hide native scrollbar but keep scrolling behaviour */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  position: relative;
 }
-.board h2{
-  margin:0 0 0.5rem;
+.board::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+.board h2 {
+  position: sticky;
+  top: 0; /* stick to the top of the scroll area in the card */
+  z-index: 3;
+  background: #ffffff;
+  margin-top: 0;
+  padding-bottom: 0.25rem;
+  top: -1rem;
 }
 
 /* Table styles */
 .teamTable{
   width:100%;
   border-collapse:collapse;
+  background: #ffffff;
   table-layout:fixed;
   font-size:18px;
   margin:0;
 }
 .teamTable tr:first-child{
-  position:sticky;
-  top:0;
-  background:rgba(255,255,255,0.95);
-  z-index:1;
+  position: sticky;
+  top: 1rem; /* adjust to clear the h2 height */
+  background: rgba(255,255,255,0.95);
+  z-index: 2;
 }
 .teamTable th,
 .teamTable td{
@@ -170,12 +184,26 @@ body{
   text-align:center;
 }
 .boldRow{
-  font-weight:700;
-  font-size:24px;
+  background-color: gold
+}
+.boldRow2{
+  background-color: silver
+}
+.boldRow3{
+  background-color: #b87333
 }
 .teamTable td:first-child{
   color:var(--brand);
   font-weight:700;
+}
+
+.teamTable .boldRow td,
+.teamTable .boldRow2 td,
+.teamTable .boldRow3 td{
+  font-weight:700;
+  font-size:16px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 /* Narrow the Rank column and allow the Bridge Weight and Load columns to grow.  The
