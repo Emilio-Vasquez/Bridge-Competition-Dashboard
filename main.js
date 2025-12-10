@@ -436,6 +436,34 @@ if (addTeamHint) {
   });
 }
 
+function setView(mode) {
+  const trussBoard   = document.getElementById('trussBoard');
+  const drawBoard    = document.getElementById('drawBoard');
+  const trussWinners = document.getElementById('trussWinners');
+  const drawWinners  = document.getElementById('drawWinners');
+  const boards       = document.getElementById('boardsContainer');
+
+  if (mode === 'truss') {
+    trussBoard.style.display   = '';
+    trussWinners.style.display = '';
+    drawBoard.style.display    = 'none';
+    drawWinners.style.display  = 'none';
+    boards.classList.add('single');
+  } else if (mode === 'draw') {
+    trussBoard.style.display   = 'none';
+    trussWinners.style.display = 'none';
+    drawBoard.style.display    = '';
+    drawWinners.style.display  = '';
+    boards.classList.add('single');
+  } else { // both
+    trussBoard.style.display   = '';
+    trussWinners.style.display = '';
+    drawBoard.style.display    = '';
+    drawWinners.style.display  = '';
+    boards.classList.remove('single');
+  }
+}
+
 // This is done for the testing phase, because I don't feel like inputting all of the info
 // one value at a time, I will make JS input it for me based on the script I put on the HTML side
 // For now, I will leave this commented out:

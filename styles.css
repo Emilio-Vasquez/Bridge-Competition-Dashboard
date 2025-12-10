@@ -103,9 +103,20 @@ body{
 
 /* Boards container holds the two tables */
 .boards{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:2rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+/* When only one board is visible, let it span full width */
+.boards.single {
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;   /* optional: center the single card */
+}
+
+.boards.single .board {
+  width: 100%;
+  max-width: 900px;        /* tweak this to taste (or remove) */
 }
 
 /* Card styling for each board */

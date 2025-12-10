@@ -31,20 +31,26 @@
       <div class="buildingCompWelcome">BRIDGE BUILDING COMPETITION</div>
     </div>
   </section>
+  <div class="viewToggle">
+      <button onclick="setView('both')">Show Both</button>
+      <button onclick="setView('truss')">Truss Only</button>
+      <button onclick="setView('draw')">Drawbridge Only</button>
+    </div>
 
   <!-- Main layout: winners on the left and both leaderboards on the right -->
   <div class="layout">
+    
     <!-- Winners panel for both designs -->
     <aside class="winners-panel">
       <!-- Truss winners -->
-      <div class="winners-group">
+      <div class="winners-group" id="trussWinners">
         <h3>Truss Leaders</h3>
         <div class="winnerCard"><p>1st</p><h3 id="teamWinnerName1_truss">?</h3></div>
         <div class="winnerCard"><p>2nd</p><h3 id="teamWinnerName2_truss">?</h3></div>
         <div class="winnerCard"><p>3rd</p><h3 id="teamWinnerName3_truss">?</h3></div>
       </div>
       <!-- Drawbridge winners -->
-      <div class="winners-group">
+      <div class="winners-group" id="drawWinners">
         <h3>Drawbridge Leaders</h3>
         <div class="winnerCard"><p>1st</p><h3 id="teamWinnerName1_draw">?</h3></div>
         <div class="winnerCard"><p>2nd</p><h3 id="teamWinnerName2_draw">?</h3></div>
@@ -52,8 +58,8 @@
       </div>
     </aside>
     <!-- Boards for Truss and Drawbridge -->
-    <div class="boards">
-      <div class="board">
+    <div class="boards" id="boardsContainer">
+      <div class="board" id="trussBoard">
         <h2>Truss</h2>
         <table id="trussTable" class="teamTable">
           <tr class="tableAttributes">
@@ -69,7 +75,7 @@
         </table>
       </div>
       
-      <div class="board">
+      <div class="board" id="drawBoard">
         <h2>Drawbridge</h2>
         <table id="drawTable" class="teamTable">
           <tr class="tableAttributes">
@@ -177,6 +183,19 @@
   <script id="initialData" type="application/json">
 
   [
+    { "name": "Teen Tech A - ADV", "bridgeWeight": 0, "design": "truss" },
+    { "name": "Teen Tech B - ADV", "bridgeWeight": 0, "design": "truss" },
+    { "name": "Teen Tech C - ADV", "bridgeWeight": 0, "design": "truss" },
+
+    { "name": "Cranford 1", "bridgeWeight": 0, "design": "truss" },
+    { "name": "Cranford 2 - ADV", "bridgeWeight": 0, "design": "truss" },
+    { "name": "Cranford 3", "bridgeWeight": 0, "design": "truss" },
+    { "name": "Cranford 5", "bridgeWeight": 0, "design": "truss" },
+    { "name": "Cranford 7", "bridgeWeight": 0, "design": "truss" },
+    { "name": "Cranford 8", "bridgeWeight": 0, "design": "truss" },
+    { "name": "Cranford 9", "bridgeWeight": 0, "design": "truss" },
+    { "name": "Cranford 10", "bridgeWeight": 0, "design": "truss" },
+    
     { "name": "Teen Tech A - ADV", "bridgeWeight": 0, "design": "drawbridge" },
     { "name": "Teen Tech B - ADV", "bridgeWeight": 0, "design": "drawbridge" },
     { "name": "Teen Tech C - ADV", "bridgeWeight": 0, "design": "drawbridge" },
