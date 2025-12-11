@@ -72,43 +72,37 @@ function compareTeams(a, b) {
 
 // ======= Utility Functions =======
 function calculateScores() {
-  // Exit early if no teams
   if (teams.length === 0) return;
 
-  // Gather values for extrema calculations
-  const bwVals   = teams.map(t => t.bridgeWeight);
-  const loadVals = teams.map(t => t.load);
-  const mdrVals  = teams.map(t => (t.load ? t.bridgeWeight / t.load : 0));
-
-  const bwMax   = Math.max(...bwVals);
-  const bwMin   = Math.min(...bwVals);
-  const loadMax = Math.max(...loadVals);
-  const loadMin = Math.min(...loadVals);
-  const mdrMax  = Math.max(...mdrVals);
-  const mdrMin  = Math.min(...mdrVals);
+  // Tunable weights for the scoring components
+  const LOAD_WEIGHT    = 1.0;   // points per lb of load
+  const EFF_MULTIPLIER = 100.0; // scales efficiency into a readable range
+  const BDEF_WEIGHT    = 2.0;   // how much each BDEF point is worth
 
   teams.forEach(t => {
-    // Update MDR (mass-to-load ratio), using 0 if load is zero
-    t.mdr = t.load ? (t.bridgeWeight / t.load) : 0;
+    const bdef = Number(t.bDEF) || 0;
 
-    // Bridge Weight Ratio (BWR) – favors lighter bridges
-    const bwr = bwMax !== bwMin
-      ? 1 + (49 / (bwMax - bwMin)) * (bwMax - t.bridgeWeight)
-      : 1;
+    // Compute efficiency safely
+    let efficiency = 0;
+    if (t.load > 0 && t.bridgeWeight > 0) {
+      efficiency = t.load / t.bridgeWeight; // lb per gram
+    }
 
-    // Load Ratio (LPR) – favors greater loads
-    const lpr = loadMax !== loadMin
-      ? 1 + (49 / (loadMax - loadMin)) * (t.load - loadMin)
-      : 1;
+    // If the bridge never carried load or has invalid weight, its performance is 0
+    let performanceScore = 0;
+    if (t.load > 0 && t.bridgeWeight > 0) {
+      performanceScore =
+        LOAD_WEIGHT    * t.load +
+        EFF_MULTIPLIER * efficiency;
+    }
 
-    // Mass-to-Load Ratio (MDRR) – favors lower mdr
-    const mdrr = mdrMax !== mdrMin
-      ? 1 + (49 / (mdrMax - mdrMin)) * (mdrMax - t.mdr)
-      : 1;
+    const bdefBonus = BDEF_WEIGHT * bdef;
+    const newScore  = performanceScore + bdefBonus;
 
-    const newScore = (Number(t.bDEF) || 0) + bwr + lpr + mdrr;
+    // Optionally keep MDR as "inverse efficiency" if you want it for display/logging
+    t.mdr = (efficiency > 0) ? (1 / efficiency) : 0;
 
-    // Freeze the score once the bridge breaks
+    // Freeze score once the bridge is marked broken
     if (t.breakPoint) {
       if (t.frozenScore === undefined) {
         t.frozenScore = newScore;
